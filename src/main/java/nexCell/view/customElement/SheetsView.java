@@ -21,6 +21,10 @@ public class SheetsView extends JPanel {
         this.add(SHEETS);
     }
 
+    public MyDataModel getModel() {
+        return this.model;
+    }
+
     public MyJTable getSHEETS() {
         return this.SHEETS;
     }

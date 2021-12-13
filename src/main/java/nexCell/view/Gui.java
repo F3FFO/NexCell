@@ -1,6 +1,7 @@
 package nexCell.view;
 
 import nexCell.view.customElement.SheetsView;
+import nexCell.view.rowHeader.RowHeader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class Gui extends JFrame {
 
         SCROLLPANE.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         SCROLLPANE.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        SCROLLPANE.setRowHeaderView(new RowHeader(PANELMID.getModel(), PANELMID.getSHEETS()));
         SCROLLPANE.setColumnHeaderView(PANELMID.getSHEETS().getTableHeader());
         SCROLLPANE.getViewport().add(PANELMID);
         this.add(SCROLLPANE, BorderLayout.CENTER);
