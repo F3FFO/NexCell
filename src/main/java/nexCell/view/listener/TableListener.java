@@ -18,7 +18,14 @@ public class TableListener implements TableModelListener {
 
     @Override
     public void tableChanged(TableModelEvent tableModelEvent) {
-        int type = sheetStructure.checkTypeCell(SHEETS.getModel().getValueAt(SHEETS.getSelectedRow(), SHEETS.getSelectedColumn()));
-        System.out.println("prova tipo -> " + type);
+        int row = SHEETS.getSelectedRow();
+        int column = SHEETS.getSelectedColumn();
+        Object value = SHEETS.getModel().getValueAt(row, column);
+        int type = this.sheetStructure.checkTypeCell(value);
+        try {
+            this.sheetStructure.convertCell(row, column, value, type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
