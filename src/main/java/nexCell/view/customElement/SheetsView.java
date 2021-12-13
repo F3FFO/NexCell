@@ -1,17 +1,18 @@
 package nexCell.view.customElement;
 
+import nexCell.controller.MyDataModel;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class SheetsView extends JPanel {
 
-    private final DefaultTableModel model;
+    private final MyDataModel model;
 
     private final JTable SHEETS = new JTable();
 
     public SheetsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        model = new DefaultTableModel();
+        model = new MyDataModel();
 
         SHEETS.setModel(this.model);
         this.add(SHEETS);
