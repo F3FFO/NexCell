@@ -15,14 +15,6 @@ public class MyDataModel extends DefaultTableModel {
     private final Vector<String> colIdentifiers;
     private final List<List<Cell>> data;
 
-    public MyDataModel() {
-        this.rowCount = 0;
-        this.columnCount = 0;
-        this.rowIdentifiers = new Vector<>();
-        this.colIdentifiers = new Vector<>();
-        this.data = new ArrayList<>();
-    }
-
     public MyDataModel(int row, int col, List<List<Cell>> data) {
         this.setRowCount(row);
         this.setColumnCount(col);
