@@ -2,6 +2,7 @@ package nexCell.view.customElement;
 
 import nexCell.controller.MyDataModel;
 import nexCell.controller.SheetStructure;
+import nexCell.view.listener.TableListener;
 
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class SheetsView extends JPanel {
         model = new MyDataModel(this.sheetStructure.getROW(), this.sheetStructure.getCOLUMN(), this.sheetStructure.getMatrice());
 
         SHEETS.setModel(this.model);
+        SHEETS.getModel().addTableModelListener(new TableListener(sheetStructure, SHEETS));
         this.add(SHEETS);
     }
 
