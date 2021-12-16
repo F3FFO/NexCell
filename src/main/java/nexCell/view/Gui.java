@@ -1,6 +1,7 @@
 package nexCell.view;
 
-import nexCell.view.customElement.SheetsView;
+import nexCell.view.customElement.panel.InfoPanel;
+import nexCell.view.customElement.panel.SheetsView;
 import nexCell.view.menu.MenuBar;
 import nexCell.view.rowHeader.RowHeader;
 
@@ -9,8 +10,8 @@ import java.awt.*;
 
 public class Gui extends JFrame {
 
-    private final JPanel PANELTOP = new JPanel();
-    private final SheetsView PANELMID = new SheetsView();
+    private final InfoPanel INFO = new InfoPanel();
+    private final SheetsView SHEETS = new SheetsView();
     private final JPanel PANELBOTTOM = new JPanel();
 
     private static final JScrollPane SCROLLPANE = new JScrollPane();
@@ -22,11 +23,13 @@ public class Gui extends JFrame {
 
         this.setJMenuBar(new MenuBar());
 
+        this.add(INFO, BorderLayout.NORTH);
+
         SCROLLPANE.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         SCROLLPANE.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        SCROLLPANE.setRowHeaderView(new RowHeader(PANELMID.getModel(), PANELMID.getSHEETS()));
-        SCROLLPANE.setColumnHeaderView(PANELMID.getSHEETS().getTableHeader());
-        SCROLLPANE.getViewport().add(PANELMID);
+        SCROLLPANE.setRowHeaderView(new RowHeader(SHEETS.getModel(), SHEETS.getSHEETS()));
+        SCROLLPANE.setColumnHeaderView(SHEETS.getSHEETS().getTableHeader());
+        SCROLLPANE.getViewport().add(SHEETS);
         this.add(SCROLLPANE, BorderLayout.CENTER);
 
         this.setResizable(true);
