@@ -7,6 +7,7 @@ public class CellInt extends Cell {
     public CellInt(int x, int y, int value) {
         super(x, y);
         this.setValue(value);
+        System.out.println("SONO INTERO");
     }
 
     @Override
