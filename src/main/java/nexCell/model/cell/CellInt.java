@@ -9,7 +9,8 @@ public class CellInt extends Cell {
         this.setValue(value);
     }
 
-    public int getValue() {
+    @Override
+    public Object getValue() {
         return value;
     }
 

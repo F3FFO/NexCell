@@ -9,11 +9,13 @@ public class CellDouble extends Cell {
         this.setValue(value);
     }
 
-    public double getValue() {
+    @Override
+    public Object getValue() {
         return value;
     }
 
     public void setValue(double value) {
         this.value = value;
     }
+
 }

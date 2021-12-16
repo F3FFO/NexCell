@@ -18,8 +18,7 @@ public class Cell {
         return column;
     }
 
-    @Override
-    public String toString() {
-        return "";
+    public Object getValue() {
+        return null;
     }
 }
