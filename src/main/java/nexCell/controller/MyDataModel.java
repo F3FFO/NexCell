@@ -3,7 +3,6 @@ package nexCell.controller;
 import nexCell.model.cell.Cell;
 
 import javax.swing.table.DefaultTableModel;
-import java.util.List;
 import java.util.Vector;
 
 public class MyDataModel extends DefaultTableModel {
@@ -12,39 +11,38 @@ public class MyDataModel extends DefaultTableModel {
     private int columnCount;
     private final Vector<Integer> rowIdentifiers;
     private final Vector<String> colIdentifiers;
-    private final List<List<Cell>> data;
+    private SheetStructure sheetStructure;
 
-    public MyDataModel(int row, int col, List<List<Cell>> data) {
-        this.setRowCount(row);
-        this.setColumnCount(col);
+    public MyDataModel(int row, int col, SheetStructure sheetStructure) {
+        super.setRowCount(row);
+        super.setColumnCount(col);
+        this.rowCount = super.getRowCount();
+        this.columnCount = super.getColumnCount(); //TODO check why I need to do this
         this.rowIdentifiers = new Vector<>();
         this.colIdentifiers = new Vector<>();
-        this.data = data;
+        this.sheetStructure = sheetStructure;
         this.populateTable();
-    }
-
-    @Override
-    public int getRowCount() {
-        return rowCount;
-    }
-
-    @Override
-    public void setRowCount(int rowCount) {
-        this.rowCount = rowCount;
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnCount;
-    }
-
-    @Override
-    public void setColumnCount(int columnCount) {
-        this.columnCount = columnCount;
     }
 
     public Vector<Integer> getRowIdentifiers() {
         return rowIdentifiers;
+    }
+
+    @Override
+    public void setValueAt(Object value, int row, int column) {
+        super.setValueAt(value, row, column);
+        int type = sheetStructure.checkTypeCell(value);
+        try {
+            sheetStructure.convertCell(row, column, value, type, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (type == 4) {
+            double res = sheetStructure.calcFormula(value);
+            System.out.println("risultato op: " + res);
+        }
+
+        super.fireTableDataChanged();
     }
 
     private void populateTable() {
@@ -53,22 +51,22 @@ public class MyDataModel extends DefaultTableModel {
 
     protected void updateTablePopulation(int i, int j) {
         columnIdentifiers(j);
-        for (; i < this.rowCount; i++) {
-            this.rowIdentifiers.addElement(i + 1);
-            for (; j < this.columnCount; j++)
+        for (; i < rowCount; i++) {
+            rowIdentifiers.addElement(i + 1);
+            for (; j < columnCount; j++)
                 addColumn(j);
         }
     }
 
     public void addColumn(int column) {
-        super.addColumn(this.colIdentifiers.get(column), this.data.get(column).toArray());
+        super.addColumn(colIdentifiers.get(column), new Cell[rowCount]);
     }
 
     private void columnIdentifiers(int startColumn) {
-        for (int i = startColumn; i < this.columnCount; i++) {
+        for (int i = startColumn; i < columnCount; i++) {
             int letCode = i + 65;
             char unicode = (char) (letCode);
-            this.colIdentifiers.add(Character.toString((unicode)));
+            colIdentifiers.add(Character.toString((unicode)));
         }
     }
 }

@@ -13,13 +13,13 @@ public class SheetStructure {
     private List<List<Cell>> matrice;
 
     public SheetStructure() {
-        this.matrice = new ArrayList<>();
-        for (int i = 0; i < this.ROW; i++) {
+        matrice = new ArrayList<>();
+        for (int i = 0; i < ROW; i++) {
             List<Cell> inRow = new ArrayList<>();
-            for (int j = 0; j < this.COLUMN; j++)
+            for (int j = 0; j < COLUMN; j++)
                 inRow.add(new Cell(i, j));
 
-            this.matrice.add(inRow);
+            matrice.add(inRow);
         }
     }
 
@@ -45,8 +45,7 @@ public class SheetStructure {
                 Double.parseDouble(castedVal);
                 return 2;
             } catch (NumberFormatException e2) {
-                String pattern = "^=[A-Z][0-9]+?[+|-][A-Z][0-9]+?$";
-                if (!Pattern.matches(pattern, castedVal)) {
+                if (!Pattern.matches(CellFormula.PATTERN, castedVal)) {
                     return 3;
                 } else {
                     return 4;
@@ -55,17 +54,36 @@ public class SheetStructure {
         }
     }
 
-    public void convertCell(int row, int col, Object value, int type) {
+    public void convertCell(int row, int col, Object value, int type, MyDataModel model) {
         Cell general;
         if (type == 1)
-            general = new CellInt(row, col, (int) value);
+            general = new CellInt(row, col, Integer.parseInt((String) value));
         else if (type == 2)
-            general = new CellDouble(row, col, (double) value);
+            general = new CellDouble(row, col, Double.parseDouble((String) value));
         else if (type == 3)
             general = new CellString(row, col, (String) value);
         else
             general = new CellFormula(row, col);
 
-        this.matrice.get(row).add(col, general);
+        matrice.set(row, matrice.get(row)).set(col, general);
+    }
+
+    private int[] extractPos(Object input) {
+        int[] res = new int[4];
+        res[0] = input.toString().charAt(1) - 'A';
+        res[1] = input.toString().charAt(2) - '0';
+        res[2] = input.toString().charAt(4) - 'A';
+        res[3] = input.toString().charAt(5) - '0';
+        return res;
+    }
+
+    public double calcFormula(Object input) {
+        int[] val = extractPos(input);
+        Object val1 = matrice.get(val[1] - 1).get(val[0]).getValue();
+        Object val2 = matrice.get(val[3] - 1).get(val[2]).getValue();
+
+        CellFormula cf = new CellFormula();
+
+        return cf.doOp((Number) val1, (Number) val2, input.toString().charAt(3));
     }
 }
