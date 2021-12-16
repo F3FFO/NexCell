@@ -2,13 +2,11 @@ package nexCell.view.customElement;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 
 public class MyJTable extends JTable {
 
-    @Override
-    public void setModel(TableModel dataModel) {
-        super.setModel(dataModel);
+    public MyJTable() {
+        super.setCellSelectionEnabled(true);
     }
 
     @Override
