@@ -1,8 +1,8 @@
-package nexCell.view.customElement;
+package nexCell.view.customElement.panel;
 
 import nexCell.controller.MyDataModel;
 import nexCell.controller.SheetStructure;
-import nexCell.view.listener.TableListener;
+import nexCell.view.customElement.MyJTable;
 
 import javax.swing.*;
 
@@ -15,11 +15,11 @@ public class SheetsView extends JPanel {
 
     public SheetsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.sheetStructure = new SheetStructure();
-        model = new MyDataModel(this.sheetStructure.getROW(), this.sheetStructure.getCOLUMN(), this.sheetStructure.getMatrice());
+        sheetStructure = new SheetStructure();
+        model = new MyDataModel(sheetStructure.getROW(), sheetStructure.getCOLUMN(), sheetStructure);
 
         SHEETS.setModel(this.model);
-        SHEETS.getModel().addTableModelListener(new TableListener(sheetStructure, SHEETS));
+        SHEETS.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         this.add(SHEETS);
     }
 
