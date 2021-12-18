@@ -67,7 +67,7 @@ public class MyDataModel extends DefaultTableModel {
 
     private void columnIdentifiers(int startColumn) {
         for (int i = startColumn; i < columnCount; i++) {
-            int letCode = i + 65;
+            int letCode = i + 'A';
             char unicode = (char) (letCode);
             colIdentifiers.add(Character.toString((unicode)));
         }
