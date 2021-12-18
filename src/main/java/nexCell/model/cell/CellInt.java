@@ -15,7 +15,7 @@ public class CellInt extends Cell {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setValue(Object value) {
+        this.value = (int) value;
     }
 }

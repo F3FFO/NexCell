@@ -15,8 +15,7 @@ public class CellDouble extends Cell {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setValue(Object value) {
+        this.value = (double) value;
     }
-
 }
