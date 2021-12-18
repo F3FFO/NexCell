@@ -11,15 +11,17 @@ public class SheetStructure {
     private int ROW = 1000;
     private int COLUMN = 26;
     private List<List<Cell>> matrice;
+    private List<CellFormula> cells;
 
     public SheetStructure() {
-        matrice = new ArrayList<>();
+        this.cells = new ArrayList<>(ROW * COLUMN);
+        this.matrice = new ArrayList<>();
         for (int i = 0; i < ROW; i++) {
             List<Cell> inRow = new ArrayList<>();
             for (int j = 0; j < COLUMN; j++)
                 inRow.add(new Cell(i, j));
 
-            matrice.add(inRow);
+            this.matrice.add(inRow);
         }
     }
 
@@ -35,6 +37,10 @@ public class SheetStructure {
         return matrice;
     }
 
+    public List<CellFormula> getCells() {
+        return cells;
+    }
+
     public int checkTypeCell(Object value) {
         String castedVal = (String) value;
         try {
@@ -47,23 +53,26 @@ public class SheetStructure {
             } catch (NumberFormatException e2) {
                 if (!Pattern.matches(CellFormula.PATTERN, castedVal)) {
                     return 3;
-                } else {
+                } else if (value != "") {
                     return 4;
                 }
             }
         }
+        return -1;
     }
 
-    public void convertCell(int row, int col, Object value, int type, MyDataModel model) {
+    public void convertCell(int row, int col, Object value, int type) {
         Cell general;
-        if (type == 1)
+        if (type == -1)
+            general = new Cell(row, col);
+        else if (type == 1)
             general = new CellInt(row, col, Integer.parseInt((String) value));
         else if (type == 2)
             general = new CellDouble(row, col, Double.parseDouble((String) value));
         else if (type == 3)
             general = new CellString(row, col, (String) value);
         else
-            general = new CellFormula(row, col);
+            general = new CellFormula(row, col, (String) value);
 
         matrice.set(row, matrice.get(row)).set(col, general);
     }
@@ -81,9 +90,6 @@ public class SheetStructure {
         int[] val = extractPos(input);
         Object val1 = matrice.get(val[1] - 1).get(val[0]).getValue();
         Object val2 = matrice.get(val[3] - 1).get(val[2]).getValue();
-
-        CellFormula cf = new CellFormula();
-
-        return cf.doOp((Number) val1, (Number) val2, input.toString().charAt(3));
+        return new CellFormula().doOp((Number) val1, (Number) val2, input.toString().charAt(3));
     }
 }
