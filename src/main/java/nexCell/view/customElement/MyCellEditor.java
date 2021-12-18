@@ -23,7 +23,7 @@ public class MyCellEditor extends DefaultCellEditor {
 
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        if (sheetStructure.getMatrice().get(row).get(column) instanceof CellFormula) {
+        if (sheetStructure.getMatrix().get(row).get(column) instanceof CellFormula) {
             String formula = sheetStructure.getCells().get(row * column).getOriginalValue();
             return super.getTableCellEditorComponent(table, formula, isSelected, row, column);
         } else

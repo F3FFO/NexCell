@@ -10,18 +10,18 @@ public class SheetStructure {
 
     private int ROW = 1000;
     private int COLUMN = 26;
-    private List<List<Cell>> matrice;
+    private List<List<Cell>> matrix;
     private List<CellFormula> cells;
 
     public SheetStructure() {
         this.cells = new ArrayList<>(ROW * COLUMN);
-        this.matrice = new ArrayList<>();
+        this.matrix = new ArrayList<>();
         for (int i = 0; i < ROW; i++) {
             List<Cell> inRow = new ArrayList<>();
             for (int j = 0; j < COLUMN; j++)
                 inRow.add(new Cell(i, j));
 
-            this.matrice.add(inRow);
+            this.matrix.add(inRow);
         }
     }
 
@@ -33,8 +33,8 @@ public class SheetStructure {
         return COLUMN;
     }
 
-    public List<List<Cell>> getMatrice() {
-        return matrice;
+    public List<List<Cell>> getMatrix() {
+        return matrix;
     }
 
     public List<CellFormula> getCells() {
@@ -74,7 +74,7 @@ public class SheetStructure {
         else
             general = new CellFormula(row, col, (String) value);
 
-        matrice.set(row, matrice.get(row)).set(col, general);
+        matrix.set(row, matrix.get(row)).set(col, general);
     }
 
     private int[] extractPos(Object input) {
@@ -88,8 +88,8 @@ public class SheetStructure {
 
     public double calcFormula(Object input) {
         int[] val = extractPos(input);
-        Object val1 = matrice.get(val[1] - 1).get(val[0]).getValue();
-        Object val2 = matrice.get(val[3] - 1).get(val[2]).getValue();
+        Object val1 = matrix.get(val[1] - 1).get(val[0]).getValue();
+        Object val2 = matrix.get(val[3] - 1).get(val[2]).getValue();
         return new CellFormula().doOp((Number) val1, (Number) val2, input.toString().charAt(3));
     }
 }

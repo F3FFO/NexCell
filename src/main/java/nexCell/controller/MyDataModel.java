@@ -42,8 +42,8 @@ public class MyDataModel extends DefaultTableModel {
         else {
             double res = sheetStructure.calcFormula(value);
             sheetStructure.getCells().add(row * column, new CellFormula(row, column, (String) value, res));
-            sheetStructure.getMatrice().get(row).get(column).setValue(res);
-            super.setValueAt(sheetStructure.getMatrice().get(row).get(column).getValue(), row, column);
+            sheetStructure.getMatrix().get(row).get(column).setValue(res);
+            super.setValueAt(sheetStructure.getMatrix().get(row).get(column).getValue(), row, column);
         }
         super.fireTableDataChanged();
     }
