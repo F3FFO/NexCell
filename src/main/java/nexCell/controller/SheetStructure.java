@@ -11,10 +11,10 @@ public class SheetStructure {
     private int ROW = 1000;
     private int COLUMN = 26;
     private List<List<Cell>> matrix;
-    private List<CellFormula> cells;
+    private List<CellFormula> cellFormula;
 
     public SheetStructure() {
-        this.cells = new ArrayList<>(ROW * COLUMN);
+        this.cellFormula = new ArrayList<>(5);
         this.matrix = new ArrayList<>();
         for (int i = 0; i < ROW; i++) {
             List<Cell> inRow = new ArrayList<>();
@@ -37,8 +37,8 @@ public class SheetStructure {
         return matrix;
     }
 
-    public List<CellFormula> getCells() {
-        return cells;
+    public List<CellFormula> getCellFormula() {
+        return cellFormula;
     }
 
     public int checkTypeCell(Object value) {

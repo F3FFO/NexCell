@@ -41,7 +41,19 @@ public class MyDataModel extends DefaultTableModel {
             super.setValueAt(value, row, column);
         else {
             double res = sheetStructure.calcFormula(value);
-            sheetStructure.getCells().add(row * column, new CellFormula(row, column, (String) value, res));
+            boolean isInside = false;
+            int i;
+            for (i = 0; i < sheetStructure.getCellFormula().size() && !isInside; i++) {
+                int rowFormula = sheetStructure.getCellFormula().get(i).getRow();
+                int columnFormula = sheetStructure.getCellFormula().get(i).getColumn();
+                if (rowFormula == row && columnFormula == column)
+                    isInside = true;
+            }
+            if (isInside)
+                sheetStructure.getCellFormula().set(i - 1, new CellFormula(row, column, (String) value, res));
+            else
+                sheetStructure.getCellFormula().add(new CellFormula(row, column, (String) value, res));
+
             sheetStructure.getMatrix().get(row).get(column).setValue(res);
             super.setValueAt(sheetStructure.getMatrix().get(row).get(column).getValue(), row, column);
         }
