@@ -20,6 +20,7 @@ public class SheetsView extends JPanel {
         model = new MyDataModel(sheetStructure.getROW(), sheetStructure.getCOLUMN(), sheetStructure);
 
         SHEETS.setModel(this.model);
+        SHEETS.getTableHeader().setReorderingAllowed(Boolean.FALSE);
         SHEETS.setDefaultEditor(Object.class, MyCellEditor.make(sheetStructure));
         this.add(SHEETS);
     }
