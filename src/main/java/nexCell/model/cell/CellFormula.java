@@ -3,6 +3,7 @@ package nexCell.model.cell;
 public class CellFormula extends Cell {
 
     public static final String PATTERN = "^=[A-Z][0-9]+?[+|\\-|*|/][A-Z][0-9]+?$";
+    public static final String ERROR = "#VALORE!";
     private Object value;
     private String originalValue;
 

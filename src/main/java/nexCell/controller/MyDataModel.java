@@ -1,6 +1,7 @@
 package nexCell.controller;
 
 import nexCell.model.cell.Cell;
+import nexCell.model.cell.CellFormula;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.Vector;
@@ -39,9 +40,12 @@ public class MyDataModel extends DefaultTableModel {
         if (type != 4)
             super.setValueAt(value, row, column);
         else {
-            double res = sheetStructure.calcFormula(value);
+            Object res = sheetStructure.calcFormula(value);
             sheetStructure.getMatrix().get(row).get(column).setValue(res);
-            super.setValueAt(sheetStructure.getMatrix().get(row).get(column).getValue(), row, column);
+            if (res instanceof Double)
+                super.setValueAt(sheetStructure.getMatrix().get(row).get(column).getValue(), row, column);
+            else
+                super.setValueAt(CellFormula.ERROR, row, column);
         }
         super.fireTableDataChanged();
     }
