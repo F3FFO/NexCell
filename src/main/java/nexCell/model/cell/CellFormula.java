@@ -8,7 +8,7 @@ public class CellFormula extends Cell {
     private String originalValue;
 
     public CellFormula() {
-        this.value = null;
+        this.setValue(null);
         this.originalValue = "";
     }
 
@@ -19,7 +19,7 @@ public class CellFormula extends Cell {
 
     public CellFormula(int x, int y, String originalValue, Object value) {
         this(x, y, originalValue);
-        this.value = value;
+        this.setValue(value);
     }
 
     public String getOriginalValue() {
@@ -47,7 +47,6 @@ public class CellFormula extends Cell {
             return valTemp;
     }
 
-    @Override
     public void setValue(Object value) {
         this.value = value;
     }

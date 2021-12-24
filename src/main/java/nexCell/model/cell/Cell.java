@@ -26,8 +26,4 @@ public class Cell {
     public Object getValue() {
         return null;
     }
-
-    public void setValue(Object value) {
-        value = 0;
-    }
 }
