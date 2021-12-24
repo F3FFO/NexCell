@@ -4,6 +4,7 @@ import nexCell.model.cell.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SheetStructure {
@@ -79,10 +80,21 @@ public class SheetStructure {
 
     private int[] extractPos(Object input) {
         int[] res = new int[4];
-        res[0] = input.toString().charAt(1) - 'A';
-        res[1] = input.toString().charAt(2) - '0';
-        res[2] = input.toString().charAt(4) - 'A';
-        res[3] = input.toString().charAt(5) - '0';
+        Pattern patternLet = Pattern.compile("([A-Z])+");
+        Pattern patternNum = Pattern.compile("([1-9])+");
+
+        Matcher matcher = patternLet.matcher((String) input);
+        if (matcher.find())
+            res[0] = matcher.group(0).charAt(0) - 'A';
+        if (matcher.find())
+            res[2] = matcher.group(0).charAt(0) - 'A';
+
+        matcher = patternNum.matcher((String) input);
+        if (matcher.find())
+            res[1] = Integer.parseInt(matcher.group(0));
+        if (matcher.find())
+            res[3] = Integer.parseInt(matcher.group(0));
+
         return res;
     }
 
