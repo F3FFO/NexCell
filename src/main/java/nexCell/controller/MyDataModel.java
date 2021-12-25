@@ -30,7 +30,13 @@ public class MyDataModel extends DefaultTableModel {
     }
 
     @Override
-    public void setValueAt(Object value, int row, int column) {
+    public void fireTableDataChanged() {
+        for (int i = 0; i < sheetStructure.getCellFormula().size(); i++)
+            this.setValueAt(sheetStructure.getCellFormula().get(i).getOriginalValue(), sheetStructure.getCellFormula().get(i).getRow(), sheetStructure.getCellFormula().get(i).getColumn(), false);
+        super.fireTableDataChanged();
+    }
+
+    public void setValueAt(Object value, int row, int column, boolean isFire) {
         int type = sheetStructure.checkTypeCell(value);
         try {
             sheetStructure.convertCell(row, column, value, type);
@@ -41,34 +47,42 @@ public class MyDataModel extends DefaultTableModel {
             super.setValueAt(value, row, column);
         else {
             Object res = sheetStructure.calcFormula(value);
-            sheetStructure.getMatrix().get(row).get(column).setValue(res);
+            ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))).setValue(res);
+            if (isFire && sheetStructure.getCellFormula().isEmpty()) {
+                sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
+            } else if (isFire) {
+                for (int i = 0; i < sheetStructure.getCellFormula().size(); i++) {
+                    if (sheetStructure.getCellFormula().get(i).getRow() != row && sheetStructure.getCellFormula().get(i).getColumn() != column)
+                        sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
+                    else
+                        sheetStructure.getCellFormula().set(i, ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
+                }
+            }
             if (res instanceof Double)
                 super.setValueAt(sheetStructure.getMatrix().get(row).get(column).getValue(), row, column);
             else
                 super.setValueAt(CellFormula.ERROR, row, column);
         }
-        super.fireTableDataChanged();
+        if (isFire)
+            this.fireTableDataChanged();
+    }
+
+    @Override
+    public void setValueAt(Object value, int row, int column) {
+        this.setValueAt(value, row, column, true);
     }
 
     private void populateTable() {
-        updateTablePopulation(0, 0);
-    }
-
-    protected void updateTablePopulation(int i, int j) {
-        columnIdentifiers(j);
-        for (; i < rowCount; i++) {
+        columnIdentifiers();
+        for (int i = 0; i < rowCount; i++)
             rowIdentifiers.addElement(i + 1);
-            for (; j < columnCount; j++)
-                addColumn(j);
-        }
+
+        for (int j = 0; j < columnCount; j++)
+            super.addColumn(colIdentifiers.get(j), new Cell[rowCount]);
     }
 
-    public void addColumn(int column) {
-        super.addColumn(colIdentifiers.get(column), new Cell[rowCount]);
-    }
-
-    private void columnIdentifiers(int startColumn) {
-        for (int i = startColumn; i < columnCount; i++) {
+    private void columnIdentifiers() {
+        for (int i = 0; i < columnCount; i++) {
             int letCode = i + 'A';
             char unicode = (char) (letCode);
             colIdentifiers.add(Character.toString((unicode)));
