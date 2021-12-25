@@ -2,16 +2,23 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'com.feffo.nexcell'
+version '1.0'
 
 repositories {
     mavenCentral()
 }
 
+configurations {
+    provided
+}
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    // implementation 'com.formdev:flatlaf:1.6.5'
+    implementation 'com.formdev:flatlaf:2.0-rc1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 test {
