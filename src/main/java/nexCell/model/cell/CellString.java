@@ -7,7 +7,6 @@ public class CellString extends Cell {
     public CellString(int x, int y, String value) {
         super(x, y);
         this.setValue(value);
-        System.out.println("SONO STRINGA");
     }
 
     @Override

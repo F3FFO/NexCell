@@ -7,7 +7,6 @@ public class CellDouble extends Cell {
     public CellDouble(int x, int y, double value) {
         super(x, y);
         this.setValue(value);
-        System.out.println("SONO DOUBLE");
     }
 
     @Override
