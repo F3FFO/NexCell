@@ -1,7 +1,12 @@
 package nexCell.controller;
 
-import nexCell.model.cell.*;
+import nexCell.model.cell.Cell;
+import nexCell.model.cell.CellFormula;
+import nexCell.model.cell.CellNumber;
+import nexCell.model.cell.CellString;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -9,8 +14,13 @@ import java.util.regex.Pattern;
 
 public class SheetStructure {
 
-    private int ROW = 1000;
-    private int COLUMN = 26;
+    public static final int ROW = 1000;
+    public static final int COLUMN = 26;
+    public static final int CELL = -1;
+    public static final int CELLNUMBER = 1;
+    public static final int CELLSTRING = 2;
+    public static final int CELLFORMULA = 3;
+
     private List<List<Cell>> matrix;
     private List<CellFormula> cellFormula;
 
@@ -26,51 +36,35 @@ public class SheetStructure {
         }
     }
 
-    public int getROW() {
-        return ROW;
-    }
-
-    public int getCOLUMN() {
-        return COLUMN;
-    }
-
     public List<List<Cell>> getMatrix() {
         return matrix;
     }
 
     public List<CellFormula> getCellFormula() {
-        return cellFormula;
+        return this.cellFormula;
     }
 
     public int checkTypeCell(Object value) {
-        String castedVal = (String) value;
         try {
-            Integer.parseInt(castedVal);
-            return 1;
-        } catch (NumberFormatException e) {
-            try {
-                Double.parseDouble(castedVal);
-                return 2;
-            } catch (NumberFormatException e2) {
-                if (!Pattern.matches(CellFormula.PATTERN, castedVal)) {
-                    return 3;
-                } else if (value != "") {
-                    return 4;
-                }
+            NumberFormat.getInstance().parse((String) value);
+            return CELLNUMBER;
+        } catch (ParseException | NumberFormatException e) {
+            if (!Pattern.matches(CellFormula.PATTERN, (String) value)) {
+                return CELLSTRING;
+            } else if (value != "") {
+                return CELLFORMULA;
             }
         }
-        return -1;
+        return CELL;
     }
 
-    public void convertCell(int row, int col, Object value, int type) {
+    public void convertCell(int row, int col, Object value, int type) throws ParseException {
         Cell general;
-        if (type == -1)
+        if (type == CELL)
             general = new Cell(row, col);
-        else if (type == 1)
-            general = new CellInt(row, col, Integer.parseInt((String) value));
-        else if (type == 2)
-            general = new CellDouble(row, col, Double.parseDouble((String) value));
-        else if (type == 3)
+        else if (type == CELLNUMBER)
+            general = new CellNumber(row, col, NumberFormat.getInstance().parse((String) value));
+        else if (type == CELLSTRING)
             general = new CellString(row, col, (String) value);
         else
             general = new CellFormula(row, col, (String) value);
@@ -80,8 +74,8 @@ public class SheetStructure {
 
     private int[] extractPos(Object input) {
         int[] res = new int[4];
-        Pattern patternLet = Pattern.compile("([A-Z])+");
-        Pattern patternNum = Pattern.compile("([1-9])+");
+        Pattern patternLet = Pattern.compile("[A-Z]+");
+        Pattern patternNum = Pattern.compile("[1-9]+");
 
         Matcher matcher = patternLet.matcher((String) input);
         if (matcher.find())
@@ -99,9 +93,9 @@ public class SheetStructure {
     }
 
     public Object calcFormula(Object input) {
-        int[] val = extractPos(input);
-        Object val1 = matrix.get(val[1] - 1).get(val[0]).getValue();
-        Object val2 = matrix.get(val[3] - 1).get(val[2]).getValue();
+        int[] values = extractPos(input);
+        Object val1 = matrix.get(values[1] - 1).get(values[0]).getValue();
+        Object val2 = matrix.get(values[3] - 1).get(values[2]).getValue();
         try {
             return new CellFormula().doOp((Number) val1, (Number) val2, input.toString().charAt(3));
         } catch (Exception e) {

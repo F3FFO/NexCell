@@ -8,25 +8,29 @@ import java.util.Vector;
 
 public class MyDataModel extends DefaultTableModel {
 
-    private int rowCount;
-    private int columnCount;
-    private final Vector<Integer> rowIdentifiers;
-    private final Vector<String> colIdentifiers;
+    private Vector<Integer> rowIdentifiers;
     private SheetStructure sheetStructure;
 
-    public MyDataModel(int row, int col, SheetStructure sheetStructure) {
-        super.setRowCount(row);
-        super.setColumnCount(col);
-        this.rowCount = super.getRowCount();
-        this.columnCount = super.getColumnCount(); //TODO check why I need to do this
+    public MyDataModel(SheetStructure sheetStructure) {
         this.rowIdentifiers = new Vector<>();
-        this.colIdentifiers = new Vector<>();
         this.sheetStructure = sheetStructure;
         this.populateTable();
     }
 
     public Vector<Integer> getRowIdentifiers() {
         return rowIdentifiers;
+    }
+
+    private void populateTable() {
+        for (int i = 0; i < SheetStructure.ROW; i++)
+            rowIdentifiers.addElement(i + 1);
+
+        Vector<String> colIdentifiers = new Vector<>();
+        for (int j = 0; j < SheetStructure.COLUMN; j++) {
+            colIdentifiers.add(Character.toString(('A' + j)));
+            super.addColumn('A' + j, new Cell[SheetStructure.ROW]);
+        }
+        this.setColumnIdentifiers(colIdentifiers);
     }
 
     @Override
@@ -36,14 +40,14 @@ public class MyDataModel extends DefaultTableModel {
         super.fireTableDataChanged();
     }
 
-    public void setValueAt(Object value, int row, int column, boolean isFire) {
+    private void setValueAt(Object value, int row, int column, boolean isFire) {
         int type = sheetStructure.checkTypeCell(value);
         try {
             sheetStructure.convertCell(row, column, value, type);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (type != 4)
+        if (type != SheetStructure.CELLFORMULA)
             super.setValueAt(value, row, column);
         else {
             Object res = sheetStructure.calcFormula(value);
@@ -70,22 +74,5 @@ public class MyDataModel extends DefaultTableModel {
     @Override
     public void setValueAt(Object value, int row, int column) {
         this.setValueAt(value, row, column, true);
-    }
-
-    private void populateTable() {
-        columnIdentifiers();
-        for (int i = 0; i < rowCount; i++)
-            rowIdentifiers.addElement(i + 1);
-
-        for (int j = 0; j < columnCount; j++)
-            super.addColumn(colIdentifiers.get(j), new Cell[rowCount]);
-    }
-
-    private void columnIdentifiers() {
-        for (int i = 0; i < columnCount; i++) {
-            int letCode = i + 'A';
-            char unicode = (char) (letCode);
-            colIdentifiers.add(Character.toString((unicode)));
-        }
     }
 }
