@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="NexCell.main:jar">
+  <artifact type="jar" build-on-make="true" name="NexCell.main:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/NexCell_main_jar</output-path>
     <root id="archive" name="NexCell.main.jar">
       <element id="module-output" name="NexCell.main" />
