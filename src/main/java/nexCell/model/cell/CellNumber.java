@@ -1,6 +1,8 @@
 package nexCell.model.cell;
 
-public class CellNumber extends Cell {
+import java.io.Serializable;
+
+public class CellNumber extends Cell implements Serializable {
 
     private Number value;
 

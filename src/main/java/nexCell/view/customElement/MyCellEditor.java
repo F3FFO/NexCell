@@ -8,17 +8,17 @@ import java.awt.*;
 
 public class MyCellEditor extends DefaultCellEditor {
 
-    private SheetStructure sheetStructure;
+    private final SheetStructure sheetStructure;
+
+    public MyCellEditor(JTextField textField, SheetStructure sheetStructure) {
+        super(textField);
+        this.sheetStructure = sheetStructure;
+    }
 
     public static MyCellEditor make(SheetStructure sheetStructure) {
         JTextField field = new JTextField("");
         field.setBorder(null);
         return new MyCellEditor(field, sheetStructure);
-    }
-
-    public MyCellEditor(JTextField textField, SheetStructure sheetStructure) {
-        super(textField);
-        this.sheetStructure = sheetStructure;
     }
 
     @Override

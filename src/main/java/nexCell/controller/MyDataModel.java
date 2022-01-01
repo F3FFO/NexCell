@@ -8,11 +8,13 @@ import java.util.Vector;
 
 public class MyDataModel extends DefaultTableModel {
 
-    private Vector<Integer> rowIdentifiers;
-    private SheetStructure sheetStructure;
+    private final Vector<Integer> rowIdentifiers;
+    private final SheetStructure sheetStructure;
+    private final Vector<String> colIdentifiers;
 
     public MyDataModel(SheetStructure sheetStructure) {
         this.rowIdentifiers = new Vector<>();
+        this.colIdentifiers = new Vector<>();
         this.sheetStructure = sheetStructure;
         this.populateTable();
     }
@@ -21,11 +23,15 @@ public class MyDataModel extends DefaultTableModel {
         return rowIdentifiers;
     }
 
+    public Vector<String> getColIdentifiers() {
+        return colIdentifiers;
+    }
+
     private void populateTable() {
         for (int i = 0; i < SheetStructure.ROW; i++)
             rowIdentifiers.addElement(i + 1);
 
-        Vector<String> colIdentifiers = new Vector<>();
+
         for (int j = 0; j < SheetStructure.COLUMN; j++) {
             colIdentifiers.add(Character.toString(('A' + j)));
             super.addColumn('A' + j, new Cell[SheetStructure.ROW]);
@@ -47,7 +53,7 @@ public class MyDataModel extends DefaultTableModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (type != SheetStructure.CELLFORMULA)
+        if (type != SheetStructure.CELL_FORMULA)
             super.setValueAt(value, row, column);
         else {
             Object res = sheetStructure.calcFormula(value);

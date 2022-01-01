@@ -9,10 +9,9 @@ import javax.swing.*;
 
 public class SheetsView extends JPanel {
 
-    private SheetStructure sheetStructure;
-    private MyDataModel model;
-
     private final MyJTable SHEETS = new MyJTable();
+    private final SheetStructure sheetStructure;
+    private final MyDataModel model;
 
     public SheetsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -31,5 +30,9 @@ public class SheetsView extends JPanel {
 
     public MyJTable getSHEETS() {
         return this.SHEETS;
+    }
+
+    public SheetStructure getSheetStructure() {
+        return sheetStructure;
     }
 }

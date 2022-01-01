@@ -1,9 +1,11 @@
 package nexCell.model.cell;
 
-public class Cell {
+import java.io.Serializable;
 
-    private int row;
-    private int column;
+public class Cell implements Serializable {
+
+    private final int row;
+    private final int column;
 
     public Cell() {
         this.row = 0;

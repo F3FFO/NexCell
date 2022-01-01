@@ -17,12 +17,12 @@ public class SheetStructure {
     public static final int ROW = 1000;
     public static final int COLUMN = 26;
     public static final int CELL = -1;
-    public static final int CELLNUMBER = 1;
-    public static final int CELLSTRING = 2;
-    public static final int CELLFORMULA = 3;
+    public static final int CELL_NUMBER = 1;
+    public static final int CELL_STRING = 2;
+    public static final int CELL_FORMULA = 3;
 
-    private List<List<Cell>> matrix;
-    private List<CellFormula> cellFormula;
+    private final List<List<Cell>> matrix;
+    private final List<CellFormula> cellFormula;
 
     public SheetStructure() {
         this.cellFormula = new ArrayList<>(5);
@@ -47,12 +47,12 @@ public class SheetStructure {
     public int checkTypeCell(Object value) {
         try {
             NumberFormat.getInstance().parse((String) value);
-            return CELLNUMBER;
+            return CELL_NUMBER;
         } catch (ParseException | NumberFormatException e) {
             if (!Pattern.matches(CellFormula.PATTERN, (String) value)) {
-                return CELLSTRING;
+                return CELL_STRING;
             } else if (value != "") {
-                return CELLFORMULA;
+                return CELL_FORMULA;
             }
         }
         return CELL;
@@ -62,9 +62,9 @@ public class SheetStructure {
         Cell general;
         if (type == CELL)
             general = new Cell(row, col);
-        else if (type == CELLNUMBER)
+        else if (type == CELL_NUMBER)
             general = new CellNumber(row, col, NumberFormat.getInstance().parse((String) value));
-        else if (type == CELLSTRING)
+        else if (type == CELL_STRING)
             general = new CellString(row, col, (String) value);
         else
             general = new CellFormula(row, col, (String) value);
@@ -97,7 +97,14 @@ public class SheetStructure {
         Object val1 = matrix.get(values[1] - 1).get(values[0]).getValue();
         Object val2 = matrix.get(values[3] - 1).get(values[2]).getValue();
         try {
-            return new CellFormula().doOp((Number) val1, (Number) val2, input.toString().charAt(3));
+            char op = '+';
+            if (input.toString().contains("-"))
+                op = '-';
+            else if (input.toString().contains("*"))
+                op = '*';
+            else if (input.toString().contains("/"))
+                op = '/';
+            return new CellFormula().doOp((Number) val1, (Number) val2, op);
         } catch (Exception e) {
             return CellFormula.ERROR;
         }
