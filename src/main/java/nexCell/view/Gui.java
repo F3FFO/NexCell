@@ -10,11 +10,10 @@ import java.awt.*;
 
 public class Gui extends JFrame {
 
+    private static final JScrollPane SCROLLPANE = new JScrollPane();
     private final InfoPanel INFO = new InfoPanel();
     private final SheetsView SHEETS = new SheetsView();
     private final JPanel PANELBOTTOM = new JPanel();
-
-    private static final JScrollPane SCROLLPANE = new JScrollPane();
 
     public Gui() {
         super("NexCell");
@@ -23,7 +22,7 @@ public class Gui extends JFrame {
         this.setMinimumSize(new Dimension(600, 400));
         this.setResizable(true);
 
-        this.setJMenuBar(new MenuBar());
+        this.setJMenuBar(new MenuBar(this));
 
         this.add(INFO, BorderLayout.NORTH);
 
@@ -37,5 +36,9 @@ public class Gui extends JFrame {
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    public SheetsView getSHEETS() {
+        return SHEETS;
     }
 }
