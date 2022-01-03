@@ -79,6 +79,12 @@ public class MyDataModel extends DefaultTableModel {
 
     @Override
     public void setValueAt(Object value, int row, int column) {
-        this.setValueAt(value, row, column, true);
+        if (sheetStructure.getMatrix().get(row).get(column) instanceof CellFormula) {
+            if (!((CellFormula) sheetStructure.getMatrix().get(row).get(column)).getOriginalValue().equals(value.toString()))
+                this.setValueAt(value, row, column, true);
+        } else {
+            if (value != sheetStructure.getMatrix().get(row).get(column).getValue())
+                this.setValueAt(value, row, column, true);
+        }
     }
 }
