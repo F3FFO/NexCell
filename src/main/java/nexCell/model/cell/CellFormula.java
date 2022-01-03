@@ -9,8 +9,8 @@ public class CellFormula extends Cell implements Serializable {
     public static final String PATTERNMIX1 = "^=([A-Z][0-9]+)[+|\\-|*|/]([0-9]+)(([\\,\\.]?[0-9]+)?)$";
     public static final String PATTERNMIX2 = "^=([0-9]+)(([\\,\\.]?[0-9]+)?)[+|\\-|*|/]([A-Z][0-9]+)$";
     public static final String ERROR = "#VALORE!";
-    private Object value;
     private final String originalValue;
+    private Object value;
 
     public CellFormula() {
         this.setValue(null);
