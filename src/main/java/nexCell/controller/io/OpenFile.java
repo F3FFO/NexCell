@@ -2,6 +2,7 @@ package nexCell.controller.io;
 
 import nexCell.controller.MyDataModel;
 import nexCell.model.cell.Cell;
+import nexCell.model.cell.CellFormula;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +23,15 @@ public class OpenFile implements Runnable {
     public void run() {
         try {
             ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(fileSelected));
-            model.setDataVector(((List<List<Cell>>) objIn.readObject()).stream().map(u -> u.toArray(new Cell[0])).toArray(Object[][]::new), model.getColIdentifiers().toArray());
+            List<List<Cell>> list = (List<List<Cell>>) objIn.readObject();
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+                for (int j = 0; j < model.getColumnCount(); j++)
+                    if (list.get(i).get(j) instanceof CellFormula)
+                        model.setValueAt(((CellFormula) list.get(i).get(j)).getOriginalValue(), i, j);
+                    else
+                        model.setValueAt(list.get(i).get(j).getValue(), i, j);
+            }
             objIn.close();
         } catch (ClassNotFoundException e) {
             System.out.println("File non aperto");
