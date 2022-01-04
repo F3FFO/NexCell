@@ -32,6 +32,7 @@ public class Gui extends JFrame {
         SCROLLPANE.getViewport().add(SHEETS);
         this.add(SCROLLPANE, BorderLayout.CENTER);
 
+        this.setMinimumSize(new Dimension(600, 400));
         this.setResizable(true);
         this.pack();
         this.setLocationRelativeTo(null);
