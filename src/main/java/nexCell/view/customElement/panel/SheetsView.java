@@ -19,6 +19,7 @@ public class SheetsView extends JPanel {
         model = new MyDataModel(sheetStructure);
 
         SHEETS.setModel(this.model);
+        SHEETS.setShowGrid(true);
         SHEETS.getTableHeader().setReorderingAllowed(Boolean.FALSE);
         SHEETS.setDefaultEditor(Object.class, MyCellEditor.make(sheetStructure));
         this.add(SHEETS);
