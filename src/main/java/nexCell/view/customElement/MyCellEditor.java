@@ -16,9 +16,9 @@ public class MyCellEditor extends DefaultCellEditor {
     }
 
     public static MyCellEditor make(SheetStructure sheetStructure) {
-        JTextField field = new JTextField("");
-        field.setBorder(null);
-        return new MyCellEditor(field, sheetStructure);
+        JTextField cell = new JTextField("");
+        cell.setBorder(null);
+        return new MyCellEditor(cell, sheetStructure);
     }
 
     @Override
