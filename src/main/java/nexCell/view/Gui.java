@@ -20,6 +20,8 @@ public class Gui extends JFrame {
         super("NexCell");
         this.setLayout(new BorderLayout());
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
+        this.setMinimumSize(new Dimension(600, 400));
+        this.setResizable(true);
 
         this.setJMenuBar(new MenuBar());
 
@@ -32,10 +34,7 @@ public class Gui extends JFrame {
         SCROLLPANE.getViewport().add(SHEETS);
         this.add(SCROLLPANE, BorderLayout.CENTER);
 
-        this.setMinimumSize(new Dimension(600, 400));
-        this.setResizable(true);
         this.pack();
-        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
