@@ -12,7 +12,7 @@ public class Gui extends JFrame {
 
     private static final JScrollPane SCROLLPANE = new JScrollPane();
     private final InfoPanel INFO = new InfoPanel();
-    private final SheetsView SHEETS = new SheetsView();
+    private final SheetsView SHEETS = new SheetsView(INFO.getCELLSELECTED());
     private final JPanel PANELBOTTOM = new JPanel();
 
     public Gui() {
