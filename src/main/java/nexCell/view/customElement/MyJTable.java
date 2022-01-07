@@ -11,8 +11,11 @@ import java.awt.*;
 
 public class MyJTable extends JTable {
 
-    public MyJTable() {
+    private JTextField CELLSELECTED;
+
+    public MyJTable(JTextField CELLSELECTED) {
         super.setCellSelectionEnabled(true);
+        this.CELLSELECTED = CELLSELECTED;
     }
 
     @Override
@@ -42,7 +45,7 @@ public class MyJTable extends JTable {
 
         Object value = super.getValueAt(row, column);
         JComponent cellRenderer = (JComponent) renderer.getTableCellRendererComponent(this, value, isSelected, hasFocus, row, column);
-        Border redBorder = new CompoundBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK), new EmptyBorder(0, 0, 0, 0));
+        Border border = new CompoundBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK), new EmptyBorder(0, 0, 0, 0));
 
         if (isSelected)
             cellRenderer.setBackground(new Color(87, 87, 87, 100));
@@ -50,13 +53,12 @@ public class MyJTable extends JTable {
             cellRenderer.setBackground(null);
 
         if (hasFocus)
-            cellRenderer.setBorder(redBorder);
+            cellRenderer.setBorder(border);
 
-        if ((isSelected && hasFocus))
-            cellRenderer.setBorder(redBorder);
-        else
-            cellRenderer.setBorder(super.getBorder());
-
+        if ((isSelected && hasFocus)) {
+            cellRenderer.setBorder(border);
+            this.CELLSELECTED.setText(this.getColumnName(column) + "" + (this.getSelectedRow() + 1));
+        }
         return cellRenderer;
     }
 }

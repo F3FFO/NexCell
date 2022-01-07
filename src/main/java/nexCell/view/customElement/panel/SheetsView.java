@@ -9,13 +9,14 @@ import javax.swing.*;
 
 public class SheetsView extends JPanel {
 
-    private final MyJTable SHEETS = new MyJTable();
+    private final MyJTable SHEETS;
     private final SheetStructure sheetStructure;
     private final MyDataModel model;
 
-    public SheetsView() {
+    public SheetsView(JTextField CELLSELECTED) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         sheetStructure = new SheetStructure();
+        SHEETS = new MyJTable(CELLSELECTED);
         model = new MyDataModel(sheetStructure);
 
         SHEETS.setModel(this.model);
