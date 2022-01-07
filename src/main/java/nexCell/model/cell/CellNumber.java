@@ -13,7 +13,10 @@ public class CellNumber extends Cell implements Serializable {
 
     @Override
     public Number getValue() {
-        return value;
+        if ((((double) value) % 1) == 0) {
+            return value.intValue();
+        } else
+            return value;
     }
 
     public void setValue(Number value) {
