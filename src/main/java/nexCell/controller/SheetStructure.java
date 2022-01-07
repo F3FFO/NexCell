@@ -46,10 +46,10 @@ public class SheetStructure {
 
     public int checkTypeCell(Object value) {
         try {
-            NumberFormat.getInstance().parse((String) value);
+            NumberFormat.getInstance().parse(value.toString());
             return CELL_NUMBER;
         } catch (ParseException | NumberFormatException e) {
-            if (!Pattern.matches(CellFormula.PATTERN, (String) value))
+            if (!Pattern.matches(CellFormula.PATTERN, value.toString()))
                 return CELL_STRING;
             else if (value != "")
                 return CELL_FORMULA;
