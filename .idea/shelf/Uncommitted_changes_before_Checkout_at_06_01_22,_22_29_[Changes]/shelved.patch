@@ -1,0 +1,22 @@
+Index: src/main/java/nexCell/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package nexCell;\n\nimport com.formdev.flatlaf.FlatLightLaf;\nimport nexCell.view.Gui;\n\nimport javax.swing.*;\n\npublic class Main {\n\n    public static void main(String[] args) {\n        FlatLightLaf.setup();\n        UIManager.put(\"TextComponent.arc\", 30);\n        new Gui();\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/nexCell/Main.java b/src/main/java/nexCell/Main.java
+--- a/src/main/java/nexCell/Main.java	
++++ b/src/main/java/nexCell/Main.java	
+@@ -8,8 +8,8 @@
+ public class Main {
+ 
+     public static void main(String[] args) {
+-        FlatLightLaf.setup();
+-        UIManager.put("TextComponent.arc", 30);
++        //FlatLightLaf.setup();
++        //UIManager.put("TextComponent.arc", 15);
+         new Gui();
+     }
+ }
+\ No newline at end of file

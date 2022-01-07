@@ -1,0 +1,77 @@
+Index: src/main/java/nexCell/controller/SheetStructure.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package nexCell.controller;\n\nimport nexCell.model.cell.Cell;\nimport nexCell.model.cell.CellFormula;\nimport nexCell.model.cell.CellNumber;\nimport nexCell.model.cell.CellString;\n\nimport java.text.NumberFormat;\nimport java.text.ParseException;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\npublic class SheetStructure {\n\n    public static final int ROW = 1000;\n    public static final int COLUMN = 26;\n    public static final int CELL = -1;\n    public static final int CELLNUMBER = 1;\n    public static final int CELLSTRING = 2;\n    public static final int CELLFORMULA = 3;\n\n    private List<List<Cell>> matrix;\n    private List<CellFormula> cellFormula;\n\n    public SheetStructure() {\n        this.cellFormula = new ArrayList<>(5);\n        this.matrix = new ArrayList<>();\n        for (int i = 0; i < ROW; i++) {\n            List<Cell> inRow = new ArrayList<>();\n            for (int j = 0; j < COLUMN; j++)\n                inRow.add(new Cell(i, j));\n\n            this.matrix.add(inRow);\n        }\n    }\n\n    public List<List<Cell>> getMatrix() {\n        return matrix;\n    }\n\n    public List<CellFormula> getCellFormula() {\n        return this.cellFormula;\n    }\n\n    public int checkTypeCell(Object value) {\n        try {\n            NumberFormat.getInstance().parse((String) value);\n            return CELLNUMBER;\n        } catch (ParseException | NumberFormatException e) {\n            if (!Pattern.matches(CellFormula.PATTERN, (String) value)) {\n                return CELLSTRING;\n            } else if (value != \"\") {\n                return CELLFORMULA;\n            }\n        }\n        return CELL;\n    }\n\n    public void convertCell(int row, int col, Object value, int type) throws ParseException {\n        Cell general;\n        if (type == CELL)\n            general = new Cell(row, col);\n        else if (type == CELLNUMBER)\n            general = new CellNumber(row, col, NumberFormat.getInstance().parse((String) value));\n        else if (type == CELLSTRING)\n            general = new CellString(row, col, (String) value);\n        else\n            general = new CellFormula(row, col, (String) value);\n\n        matrix.set(row, matrix.get(row)).set(col, general);\n    }\n\n    private int[] extractPos(Object input) {\n        int[] res = new int[4];\n        Pattern patternLet = Pattern.compile(\"[A-Z]+\");\n        Pattern patternNum = Pattern.compile(\"[1-9]+\");\n\n        Matcher matcher = patternLet.matcher((String) input);\n        if (matcher.find())\n            res[0] = matcher.group(0).charAt(0) - 'A';\n        if (matcher.find())\n            res[2] = matcher.group(0).charAt(0) - 'A';\n\n        matcher = patternNum.matcher((String) input);\n        if (matcher.find())\n            res[1] = Integer.parseInt(matcher.group(0));\n        if (matcher.find())\n            res[3] = Integer.parseInt(matcher.group(0));\n\n        return res;\n    }\n\n    public Object calcFormula(Object input) {\n        int[] values = extractPos(input);\n        Object val1 = matrix.get(values[1] - 1).get(values[0]).getValue();\n        Object val2 = matrix.get(values[3] - 1).get(values[2]).getValue();\n        try {\n            return new CellFormula().doOp((Number) val1, (Number) val2, input.toString().charAt(3));\n        } catch (Exception e) {\n            return CellFormula.ERROR;\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/nexCell/controller/SheetStructure.java b/src/main/java/nexCell/controller/SheetStructure.java
+--- a/src/main/java/nexCell/controller/SheetStructure.java	(revision 1281f322c985738c49b9439f9f8f08b2250610c1)
++++ b/src/main/java/nexCell/controller/SheetStructure.java	(date 1640642007617)
+@@ -46,10 +46,10 @@
+ 
+     public int checkTypeCell(Object value) {
+         try {
+-            NumberFormat.getInstance().parse((String) value);
++            NumberFormat.getInstance().parse(value.toString());
+             return CELLNUMBER;
+         } catch (ParseException | NumberFormatException e) {
+-            if (!Pattern.matches(CellFormula.PATTERN, (String) value)) {
++            if (!Pattern.matches(CellFormula.PATTERN, value.toString())) {
+                 return CELLSTRING;
+             } else if (value != "") {
+                 return CELLFORMULA;
+@@ -63,11 +63,11 @@
+         if (type == CELL)
+             general = new Cell(row, col);
+         else if (type == CELLNUMBER)
+-            general = new CellNumber(row, col, NumberFormat.getInstance().parse((String) value));
++            general = new CellNumber(row, col, NumberFormat.getInstance().parse(value.toString()));
+         else if (type == CELLSTRING)
+-            general = new CellString(row, col, (String) value);
++            general = new CellString(row, col, value.toString());
+         else
+-            general = new CellFormula(row, col, (String) value);
++            general = new CellFormula(row, col, value.toString());
+ 
+         matrix.set(row, matrix.get(row)).set(col, general);
+     }
+@@ -77,13 +77,13 @@
+         Pattern patternLet = Pattern.compile("[A-Z]+");
+         Pattern patternNum = Pattern.compile("[1-9]+");
+ 
+-        Matcher matcher = patternLet.matcher((String) input);
++        Matcher matcher = patternLet.matcher(input.toString());
+         if (matcher.find())
+             res[0] = matcher.group(0).charAt(0) - 'A';
+         if (matcher.find())
+             res[2] = matcher.group(0).charAt(0) - 'A';
+ 
+-        matcher = patternNum.matcher((String) input);
++        matcher = patternNum.matcher(input.toString());
+         if (matcher.find())
+             res[1] = Integer.parseInt(matcher.group(0));
+         if (matcher.find())
+@@ -97,9 +97,21 @@
+         Object val1 = matrix.get(values[1] - 1).get(values[0]).getValue();
+         Object val2 = matrix.get(values[3] - 1).get(values[2]).getValue();
+         try {
+-            return new CellFormula().doOp((Number) val1, (Number) val2, input.toString().charAt(3));
++            char op = '.';
++            if (input.toString().contains("+"))
++                op = input.toString().charAt(input.toString().indexOf('+'));
++            else if (input.toString().contains("-"))
++                op = input.toString().charAt(input.toString().indexOf('-'));
++            else if (input.toString().contains("*"))
++                op = input.toString().charAt(input.toString().indexOf('*'));
++            else if (input.toString().contains("/"))
++                op = input.toString().charAt(input.toString().indexOf('/'));
++
++            if (op != '.')
++                return new CellFormula().doOp((Number) val1, (Number) val2, op);
+         } catch (Exception e) {
+             return CellFormula.ERROR;
+         }
++        return CellFormula.ERROR;
+     }
+ }

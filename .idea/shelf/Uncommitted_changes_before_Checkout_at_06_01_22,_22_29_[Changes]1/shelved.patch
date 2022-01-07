@@ -1,0 +1,19 @@
+Index: src/main/java/nexCell/model/cell/CellFormula.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package nexCell.model.cell;\n\nimport java.io.Serializable;\n\npublic class CellFormula extends Cell implements Serializable {\n\n    public static final String PATTERN = \"^=[A-Z][0-9]+?[+|\\\\-|*|/][A-Z][0-9]+?$\";\n    public static final String ERROR = \"#VALORE!\";\n    private Object value;\n    private final String originalValue;\n\n    public CellFormula() {\n        this.setValue(null);\n        this.originalValue = \"\";\n    }\n\n    public CellFormula(int x, int y, String originalValue) {\n        super(x, y);\n        this.originalValue = originalValue;\n    }\n\n    public CellFormula(int x, int y, String originalValue, Object value) {\n        this(x, y, originalValue);\n        this.setValue(value);\n    }\n\n    public String getOriginalValue() {\n        return originalValue;\n    }\n\n    public double doOp(Number val1, Number val2, char op) {\n        if (op == '+') {\n            return val1.doubleValue() + val2.doubleValue();\n        } else if (op == '-') {\n            return val1.doubleValue() - val2.doubleValue();\n        } else if (op == '*') {\n            return val1.doubleValue() * val2.doubleValue();\n        } else {\n            return val1.doubleValue() / val2.doubleValue();\n        }\n    }\n\n    @Override\n    public Object getValue() {\n        double valTemp = (double) value;\n        if ((valTemp % 1) == 0)\n            return (int) valTemp;\n        else\n            return valTemp;\n    }\n\n    public void setValue(Object value) {\n        this.value = value;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/nexCell/model/cell/CellFormula.java b/src/main/java/nexCell/model/cell/CellFormula.java
+--- a/src/main/java/nexCell/model/cell/CellFormula.java	
++++ b/src/main/java/nexCell/model/cell/CellFormula.java	
+@@ -4,7 +4,7 @@
+ 
+ public class CellFormula extends Cell implements Serializable {
+ 
+-    public static final String PATTERN = "^=[A-Z][0-9]+?[+|\\-|*|/][A-Z][0-9]+?$";
++    public static final String PATTERN = "^=[A-Z]*[0-9]+?[+|\\-|*|/][A-Z]*[0-9]+?$";
+     public static final String ERROR = "#VALORE!";
+     private Object value;
+     private final String originalValue;

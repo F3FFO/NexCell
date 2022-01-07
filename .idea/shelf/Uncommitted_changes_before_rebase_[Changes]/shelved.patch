@@ -1,0 +1,22 @@
+Index: src/main/java/nexCell/controller/io/OpenFile.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package nexCell.controller.io;\n\nimport nexCell.controller.MyDataModel;\nimport nexCell.model.cell.Cell;\nimport nexCell.model.cell.CellFormula;\n\nimport java.io.File;\nimport java.io.FileInputStream;\nimport java.io.IOException;\nimport java.io.ObjectInputStream;\nimport java.util.List;\n\npublic class OpenFile implements Runnable {\n\n    private final File fileSelected;\n    private final MyDataModel model;\n\n    public OpenFile(File fileSelected, MyDataModel model) {\n        this.fileSelected = fileSelected;\n        this.model = model;\n    }\n\n    public void run() {\n        try {\n            ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(fileSelected));\n            List<List<Cell>> list = (List<List<Cell>>) objIn.readObject();\n\n            for (int i = 0; i < model.getRowCount(); i++) {\n                for (int j = 0; j < model.getColumnCount(); j++)\n                    if (list.get(i).get(j) instanceof CellFormula)\n                        model.setValueAt(((CellFormula) list.get(i).get(j)).getOriginalValue(), i, j);\n                    else\n                        model.setValueAt(list.get(i).get(j).getValue(), i, j);\n            }\n            objIn.close();\n        } catch (ClassNotFoundException e) {\n            System.out.println(\"File non aperto\");\n        } catch (IOException e2) {\n            System.out.println(\"errore chiusura stream\");\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/nexCell/controller/io/OpenFile.java b/src/main/java/nexCell/controller/io/OpenFile.java
+--- a/src/main/java/nexCell/controller/io/OpenFile.java	(revision decd8ae73151a5bd92837004e80cd6f676913313)
++++ b/src/main/java/nexCell/controller/io/OpenFile.java	(date 1641562715851)
+@@ -29,8 +29,10 @@
+                 for (int j = 0; j < model.getColumnCount(); j++)
+                     if (list.get(i).get(j) instanceof CellFormula)
+                         model.setValueAt(((CellFormula) list.get(i).get(j)).getOriginalValue(), i, j);
+-                    else
++                    else {
++                        System.out.println(list.get(i).get(j).getValue());
+                         model.setValueAt(list.get(i).get(j).getValue(), i, j);
++                    }
+             }
+             objIn.close();
+         } catch (ClassNotFoundException e) {

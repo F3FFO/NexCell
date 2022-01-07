@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="NexCell.main:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3dc140e6-b098-45ab-ae70-d816cb782f45" name="Changes" comment="add selected cell text" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="NexCell" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
+  </component>
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jrt:///usr/lib/jvm/default!/java.base/java/util/ArrayList.class" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="downloadAnnotationsAutomatically" value="true" />
+        <option name="downloadDocsAutomatically" value="true" />
+        <option name="downloadSourcesAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="22FBP57rAphJqYyQGMhsmHWUyA8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last.edited.regexp" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LabIOFile" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="ReaderModeSettings">
+    <option name="showRenderedDocs" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/nexCell/view" />
+      <recent name="$PROJECT_DIR$/src/main/java/nexCell/view/header" />
+      <recent name="$PROJECT_DIR$/src/main/java/nexCell" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="nexCell.view.listener" />
+      <recent name="nexCell.controller" />
+      <recent name="nexCell.view.customElement" />
+      <recent name="nexCell.view.Listener" />
+      <recent name="nexCell.view" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="nexCell.Main" />
+      <module name="NexCell.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nexCell.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3dc140e6-b098-45ab-ae70-d816cb782f45" name="Changes" comment="" />
+      <created>1639423429101</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1639423429101</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Add model class">
+      <created>1639424858825</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1639424858825</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add jtable and model">
+      <created>1639425522948</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1639425522948</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added panel to JFrame">
+      <created>1639425545875</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1639425545875</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added custom table model">
+      <created>1639425743210</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1639425743210</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added custom JTable and fix error">
+      <created>1639425973895</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1639425973895</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Remove unused constructor">
+      <created>1639426119554</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1639426119554</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add row header">
+      <created>1639426139444</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639426139444</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add table listener">
+      <created>1639426230740</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639426230740</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Convert cell of matrix">
+      <created>1639426713625</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1639426713625</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add first simple menu">
+      <created>1639477952061</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1639477952061</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update model">
+      <created>1639676638642</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1639676638643</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update model for debug">
+      <created>1639691207865</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1639691207865</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add info JPanel on top">
+      <created>1639691324759</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1639691324759</updated>
+    </task>
+    <task id="LOCAL-00014" summary="File autogenerated from IDE">
+      <created>1639691360868</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1639691360868</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add method setValue()">
+      <created>1639849261449</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1639849261449</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add custom CellEditor for the implementation of formulas">
+      <created>1639849354710</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1639849354710</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added arraylist to store formulas and other optimizations">
+      <created>1639849435703</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1639849435703</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Optimizations">
+      <created>1639849454913</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1639849454913</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Bug fix">
+      <created>1639849523369</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1639849523369</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Change name to data structure">
+      <created>1639849927690</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1639849927690</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Bug fix and decreased memory usage">
+      <created>1639909446958</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1639909446958</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Optimize memory usage">
+      <created>1640253081978</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1640253081978</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Disable reordering of table header">
+      <created>1640253313898</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1640253313898</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Bug fix when extracting formula from user input">
+      <created>1640343139182</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1640343139182</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Optimize gradle">
+      <created>1640343158066</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1640343158066</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Delete unused code">
+      <created>1640343220348</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1640343220348</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fixed bug when values in formula cause a crash">
+      <created>1640353298496</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1640353298496</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Remove unused method">
+      <created>1640353683035</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1640353683035</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Update dependencies and set default jdk">
+      <created>1640454746474</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1640454746474</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Delete unused debug print">
+      <created>1640454762925</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1640454762925</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Bug fix, optimizations and implementation of values update when one of them change">
+      <created>1640454856844</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1640454856844</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Add jar config">
+      <created>1640454888432</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1640454888432</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Delete redundant class and minor bug fix">
+      <created>1640639121920</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1640639121920</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Bug fix">
+      <created>1640639133946</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1640639133946</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Add MigLayout">
+      <created>1641416302586</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1641416302586</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Set minimum size for JFrame">
+      <created>1641416416203</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1641416416203</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Cleanup code">
+      <created>1641416440044</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1641416440044</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Implemented MigLayout">
+      <created>1641416461475</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1641416461475</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Implemented FlatLaf theme">
+      <created>1641416507710</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1641416507710</updated>
+    </task>
+    <task id="LOCAL-00040" summary="bug fixed">
+      <created>1641497116046</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1641497116046</updated>
+    </task>
+    <task id="LOCAL-00041" summary="bug fixed">
+      <created>1641497416880</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1641497416880</updated>
+    </task>
+    <task id="LOCAL-00042" summary="bug fixed">
+      <created>1641497442235</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1641497442235</updated>
+    </task>
+    <task id="LOCAL-00043" summary="change border color of focused cell and background of selected cell">
+      <created>1641502556999</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1641502556999</updated>
+    </task>
+    <task id="LOCAL-00044" summary="rethink logic behind formula and add basic calc">
+      <created>1641559448298</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1641559448298</updated>
+    </task>
+    <task id="LOCAL-00045" summary="bug fixed on open file">
+      <created>1641562997734</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1641562997734</updated>
+    </task>
+    <task id="LOCAL-00046" summary="modified .gitignore">
+      <created>1641563366817</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1641563366817</updated>
+    </task>
+    <task id="LOCAL-00047" summary=".idea">
+      <created>1641564370647</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1641564370648</updated>
+    </task>
+    <task id="LOCAL-00048" summary="add selected cell text">
+      <created>1641565587299</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1641565587299</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Optimize memory usage" />
+    <MESSAGE value="Disable reordering of table header" />
+    <MESSAGE value="Bug fix when extracting formula from user input" />
+    <MESSAGE value="Optimize gradle" />
+    <MESSAGE value="Delete unused code" />
+    <MESSAGE value="Fixed bug when values in formula cause a crash" />
+    <MESSAGE value="Remove unused method" />
+    <MESSAGE value="Update dependencies and set default jdk" />
+    <MESSAGE value="Delete unused debug print" />
+    <MESSAGE value="Bug fix, optimizations and implementation of values update when one of them change" />
+    <MESSAGE value="Add jar config" />
+    <MESSAGE value="Delete redundant class and minor bug fix" />
+    <MESSAGE value="Bug fix" />
+    <MESSAGE value="Add MigLayout" />
+    <MESSAGE value="Set minimum size for JFrame" />
+    <MESSAGE value="Cleanup code" />
+    <MESSAGE value="Implemented MigLayout" />
+    <MESSAGE value="Implemented FlatLaf theme" />
+    <MESSAGE value="bug fixed" />
+    <MESSAGE value="change border color of focused cell and background of selected cell" />
+    <MESSAGE value="rethink logic behind formula and add basic calc" />
+    <MESSAGE value="bug fixed on open file" />
+    <MESSAGE value="modified .gitignore" />
+    <MESSAGE value=".idea" />
+    <MESSAGE value="add selected cell text" />
+    <option name="LAST_COMMIT_MESSAGE" value="add selected cell text" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.StackOverflowError" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

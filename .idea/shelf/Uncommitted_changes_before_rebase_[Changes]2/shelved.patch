@@ -1,0 +1,35 @@
+Index: src/main/java/nexCell/controller/MyDataModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package nexCell.controller;\n\nimport nexCell.model.cell.Cell;\nimport nexCell.model.cell.CellFormula;\n\nimport javax.swing.table.DefaultTableModel;\nimport java.util.Vector;\n\npublic class MyDataModel extends DefaultTableModel {\n\n    private Vector<Integer> rowIdentifiers;\n    private SheetStructure sheetStructure;\n\n    public MyDataModel(SheetStructure sheetStructure) {\n        this.rowIdentifiers = new Vector<>();\n        this.sheetStructure = sheetStructure;\n        this.populateTable();\n    }\n\n    public Vector<Integer> getRowIdentifiers() {\n        return rowIdentifiers;\n    }\n\n    private void populateTable() {\n        for (int i = 0; i < SheetStructure.ROW; i++)\n            rowIdentifiers.addElement(i + 1);\n\n        Vector<String> colIdentifiers = new Vector<>();\n        for (int j = 0; j < SheetStructure.COLUMN; j++) {\n            colIdentifiers.add(Character.toString(('A' + j)));\n            super.addColumn('A' + j, new Cell[SheetStructure.ROW]);\n        }\n        this.setColumnIdentifiers(colIdentifiers);\n    }\n\n    @Override\n    public void fireTableDataChanged() {\n        for (int i = 0; i < sheetStructure.getCellFormula().size(); i++)\n            this.setValueAt(sheetStructure.getCellFormula().get(i).getOriginalValue(), sheetStructure.getCellFormula().get(i).getRow(), sheetStructure.getCellFormula().get(i).getColumn(), false);\n        super.fireTableDataChanged();\n    }\n\n    private void setValueAt(Object value, int row, int column, boolean isFire) {\n        int type = sheetStructure.checkTypeCell(value);\n        try {\n            sheetStructure.convertCell(row, column, value, type);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n        if (type != SheetStructure.CELLFORMULA)\n            super.setValueAt(value, row, column);\n        else {\n            Object res = sheetStructure.calcFormula(value);\n            ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))).setValue(res);\n            if (isFire && sheetStructure.getCellFormula().isEmpty()) {\n                sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));\n            } else if (isFire) {\n                for (int i = 0; i < sheetStructure.getCellFormula().size(); i++) {\n                    if (sheetStructure.getCellFormula().get(i).getRow() != row && sheetStructure.getCellFormula().get(i).getColumn() != column)\n                        sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));\n                    else\n                        sheetStructure.getCellFormula().set(i, ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));\n                }\n            }\n            if (res instanceof Double)\n                super.setValueAt(sheetStructure.getMatrix().get(row).get(column).getValue(), row, column);\n            else\n                super.setValueAt(CellFormula.ERROR, row, column);\n        }\n        if (isFire)\n            this.fireTableDataChanged();\n    }\n\n    @Override\n    public void setValueAt(Object value, int row, int column) {\n        this.setValueAt(value, row, column, true);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/nexCell/controller/MyDataModel.java b/src/main/java/nexCell/controller/MyDataModel.java
+--- a/src/main/java/nexCell/controller/MyDataModel.java	(revision 1281f322c985738c49b9439f9f8f08b2250610c1)
++++ b/src/main/java/nexCell/controller/MyDataModel.java	(date 1640791167654)
+@@ -21,18 +21,6 @@
+         return rowIdentifiers;
+     }
+ 
+-    private void populateTable() {
+-        for (int i = 0; i < SheetStructure.ROW; i++)
+-            rowIdentifiers.addElement(i + 1);
+-
+-        Vector<String> colIdentifiers = new Vector<>();
+-        for (int j = 0; j < SheetStructure.COLUMN; j++) {
+-            colIdentifiers.add(Character.toString(('A' + j)));
+-            super.addColumn('A' + j, new Cell[SheetStructure.ROW]);
+-        }
+-        this.setColumnIdentifiers(colIdentifiers);
+-    }
+-
+     @Override
+     public void fireTableDataChanged() {
+         for (int i = 0; i < sheetStructure.getCellFormula().size(); i++)
+@@ -75,4 +63,5 @@
+     public void setValueAt(Object value, int row, int column) {
+         this.setValueAt(value, row, column, true);
+     }
++
+ }
