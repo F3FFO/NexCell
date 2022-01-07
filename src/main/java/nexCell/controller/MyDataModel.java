@@ -31,7 +31,6 @@ public class MyDataModel extends DefaultTableModel {
         for (int i = 0; i < SheetStructure.ROW; i++)
             rowIdentifiers.addElement(i + 1);
 
-
         for (int j = 0; j < SheetStructure.COLUMN; j++) {
             colIdentifiers.add(Character.toString(('A' + j)));
             super.addColumn('A' + j, new Cell[SheetStructure.ROW]);
@@ -48,14 +47,15 @@ public class MyDataModel extends DefaultTableModel {
 
     private void setValueAt(Object value, int row, int column, boolean isFire) {
         int type = sheetStructure.checkTypeCell(value);
-        try {
-            sheetStructure.convertCell(row, column, value, type);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (type != SheetStructure.CELL_FORMULA)
+        sheetStructure.convertCell(row, column, value, type);
+        if (type != SheetStructure.CELL_FORMULA) {
+            if (!sheetStructure.getCellFormula().isEmpty())
+                for (int i = 0; i < sheetStructure.getCellFormula().size(); i++) {
+                    if (sheetStructure.getCellFormula().get(i).getRow() == row && sheetStructure.getCellFormula().get(i).getColumn() == column)
+                        sheetStructure.getCellFormula().remove(i);
+                }
             super.setValueAt(value, row, column);
-        else {
+        } else {
             Object res = sheetStructure.calcFormula(value);
             ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))).setValue(res);
             if (isFire && sheetStructure.getCellFormula().isEmpty()) {
@@ -68,7 +68,7 @@ public class MyDataModel extends DefaultTableModel {
                         sheetStructure.getCellFormula().set(i, ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
                 }
             }
-            if (res instanceof Double)
+            if (res instanceof Number)
                 super.setValueAt(sheetStructure.getMatrix().get(row).get(column).getValue(), row, column);
             else
                 super.setValueAt(CellFormula.ERROR, row, column);
