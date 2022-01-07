@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="NexCell.main:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/NexCell_main_jar</output-path>
-    <root id="archive" name="NexCell.main.jar">
-      <element id="module-output" name="NexCell.main" />
-      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.formdev/flatlaf/2.0-rc1/d06151a6d73b078a55bc8796c9bbf4e1e1bec592/flatlaf-2.0-rc1.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>
