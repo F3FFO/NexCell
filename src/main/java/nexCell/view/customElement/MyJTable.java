@@ -65,13 +65,13 @@ public class MyJTable extends JTable {
         if ((isSelected && hasFocus)) {
             cellRenderer.setBackground(null);
             cellRenderer.setBorder(border);
-            if ((((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column).getValue() == null))
+            if (value == null)
                 FORMULA.setText("");
             else {
-                if ((((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column) instanceof CellFormula))
+                if (value.toString().equals(CellFormula.ERROR))
                     FORMULA.setText(((CellFormula) ((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column)).getOriginalValue());
                 else
-                    FORMULA.setText(((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column).getValue().toString());
+                    FORMULA.setText(value.toString());
             }
         }
         return cellRenderer;
