@@ -30,7 +30,7 @@ public class Gui extends JFrame {
 
         SCROLLPANE.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         SCROLLPANE.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        SCROLLPANE.setRowHeaderView(new RowHeader(SHEETS.getModel(), SHEETS.getSHEETS()));
+        SCROLLPANE.setRowHeaderView(new RowHeader(SHEETS.getSHEETS()));
         SCROLLPANE.setColumnHeaderView(SHEETS.getSHEETS().getTableHeader());
         SCROLLPANE.getViewport().add(SHEETS);
         this.add(SCROLLPANE, BorderLayout.CENTER);
