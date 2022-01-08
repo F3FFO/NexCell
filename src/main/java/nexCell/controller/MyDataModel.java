@@ -23,8 +23,8 @@ public class MyDataModel extends DefaultTableModel {
         return rowIdentifiers;
     }
 
-    public Vector<String> getColIdentifiers() {
-        return colIdentifiers;
+    public SheetStructure getSheetStructure() {
+        return sheetStructure;
     }
 
     private void populateTable() {

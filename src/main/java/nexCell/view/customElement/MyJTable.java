@@ -1,5 +1,8 @@
 package nexCell.view.customElement;
 
+import nexCell.controller.MyDataModel;
+import nexCell.model.cell.CellFormula;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -12,14 +15,16 @@ import java.awt.*;
 public class MyJTable extends JTable {
 
     private JTextField CELLSELECTED;
+    private JTextField FORMULA;
 
-    public MyJTable(JTextField CELLSELECTED) {
+    public MyJTable(JTextField CELLSELECTED, JTextField FORMULA) {
         super.setCellSelectionEnabled(true);
         this.setShowGrid(true);
         this.setGridColor(Color.LIGHT_GRAY);
         this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         this.getTableHeader().setReorderingAllowed(Boolean.FALSE);
         this.CELLSELECTED = CELLSELECTED;
+        this.FORMULA = FORMULA;
     }
 
     @Override
@@ -57,8 +62,18 @@ public class MyJTable extends JTable {
         } else
             cellRenderer.setBackground(null);
 
-        if ((isSelected && hasFocus))
+        if ((isSelected && hasFocus)) {
+            cellRenderer.setBackground(null);
             cellRenderer.setBorder(border);
+            if ((((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column).getValue() == null))
+                FORMULA.setText("");
+            else {
+                if ((((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column) instanceof CellFormula))
+                    FORMULA.setText(((CellFormula) ((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column)).getOriginalValue());
+                else
+                    FORMULA.setText(((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column).getValue().toString());
+            }
+        }
         return cellRenderer;
     }
 }

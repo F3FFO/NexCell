@@ -16,7 +16,7 @@ public class SheetsView extends JPanel {
     public SheetsView(JTextField CELLSELECTED, JTextField FORMULA) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         sheetStructure = new SheetStructure();
-        SHEETS = new MyJTable(CELLSELECTED);
+        SHEETS = new MyJTable(CELLSELECTED, FORMULA);
         model = new MyDataModel(sheetStructure);
 
         SHEETS.setModel(this.model);
