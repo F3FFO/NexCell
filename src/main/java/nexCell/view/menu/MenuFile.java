@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class MenuFile extends JMenu {
 
-    private final int ELEMENT = 4;
+    private final int ELEMENT = 5;
     private final JMenuItem[] item;
 
     public MenuFile(Gui frame) {
@@ -26,8 +26,7 @@ public class MenuFile extends JMenu {
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 Runnable runnable = new OpenFile(fileChooser.getSelectedFile(), frame.getSHEETS().getModel());
 
-                Thread thread = new Thread(runnable);
-                thread.start();
+                new Thread(runnable).start();
             }
         });
 
@@ -39,16 +38,28 @@ public class MenuFile extends JMenu {
 
             int userSelection = fileChooser.showSaveDialog(this);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
+                System.out.println(fileChooser.getSelectedFile().getName());
                 // TODO check if file name field is not empty
                 Runnable runnable = new SaveFile(fileChooser.getSelectedFile(), frame.getSHEETS().getSheetStructure().getMatrix());
 
-                Thread thread = new Thread(runnable);
-                thread.start();
+                new Thread(runnable).start();
             }
         });
-
-        item[3] = new JMenuItem("Esci");
+        item[3] = new JMenuItem("Salva con nome...");
         item[3].addActionListener(actionEvent -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Salva con nome...");
+            fileChooser.setLocale(Locale.getDefault());
+
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                Runnable runnable = new SaveFile(fileChooser.getSelectedFile(), frame.getSHEETS().getSheetStructure().getMatrix());
+
+                new Thread(runnable).start();
+            }
+        });
+        item[4] = new JMenuItem("Esci");
+        item[4].addActionListener(actionEvent -> {
             frame.dispose();
         });
         for (JMenuItem jMenuItem : item) this.add(jMenuItem);
