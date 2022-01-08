@@ -15,6 +15,8 @@ public class MyJTable extends JTable {
 
     public MyJTable(JTextField CELLSELECTED) {
         super.setCellSelectionEnabled(true);
+        this.setShowGrid(true);
+        this.setGridColor(Color.LIGHT_GRAY);
         this.CELLSELECTED = CELLSELECTED;
     }
 

@@ -4,21 +4,17 @@ import nexCell.controller.SheetStructure;
 import nexCell.model.cell.CellFormula;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class MyCellEditor extends DefaultCellEditor {
 
     private final SheetStructure sheetStructure;
 
-    public MyCellEditor(JTextField textField, SheetStructure sheetStructure) {
-        super(textField);
+    public MyCellEditor(SheetStructure sheetStructure, JTextField FORMULA) {
+        super(new TextFieldCell(FORMULA));
         this.sheetStructure = sheetStructure;
-    }
-
-    public static MyCellEditor make(SheetStructure sheetStructure) {
-        JTextField cell = new JTextField("");
-        cell.setBorder(null);
-        return new MyCellEditor(cell, sheetStructure);
     }
 
     @Override

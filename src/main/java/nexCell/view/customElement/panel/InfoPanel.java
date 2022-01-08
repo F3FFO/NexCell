@@ -10,7 +10,7 @@ public class InfoPanel extends JPanel {
     private final JTextField CELLSELECTED = new JTextField("");
     private static final JLabel LABEL1 = new JLabel("|");
     private static final JLabel LABEL2 = new JLabel("=");
-    private static final JTextField FORMULA = new JTextField("");
+    private final JTextField FORMULA = new JTextField("");
 
     public InfoPanel() {
         this.setLayout(new MigLayout("fillx"));
@@ -26,5 +26,9 @@ public class InfoPanel extends JPanel {
 
     public JTextField getCELLSELECTED() {
         return CELLSELECTED;
+    }
+
+    public JTextField getFORMULA() {
+        return FORMULA;
     }
 }

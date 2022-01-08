@@ -13,16 +13,15 @@ public class SheetsView extends JPanel {
     private final SheetStructure sheetStructure;
     private final MyDataModel model;
 
-    public SheetsView(JTextField CELLSELECTED) {
+    public SheetsView(JTextField CELLSELECTED, JTextField FORMULA) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         sheetStructure = new SheetStructure();
         SHEETS = new MyJTable(CELLSELECTED);
         model = new MyDataModel(sheetStructure);
 
         SHEETS.setModel(this.model);
-        SHEETS.setShowGrid(true);
         SHEETS.getTableHeader().setReorderingAllowed(Boolean.FALSE);
-        SHEETS.setDefaultEditor(Object.class, MyCellEditor.make(sheetStructure));
+        SHEETS.setDefaultEditor(Object.class, new MyCellEditor(sheetStructure, FORMULA));
         this.add(SHEETS);
     }
 
