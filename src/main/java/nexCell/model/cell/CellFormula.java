@@ -40,7 +40,7 @@ public class CellFormula extends Cell implements Serializable {
 
     @Override
     public Object getValue() {
-        double valTemp = (double) value;
+        double valTemp = Double.parseDouble(value.toString());
         if ((valTemp % 1) == 0)
             return (int) valTemp;
         else
