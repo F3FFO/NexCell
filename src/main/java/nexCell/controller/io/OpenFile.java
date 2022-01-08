@@ -20,6 +20,7 @@ public class OpenFile implements Runnable {
         this.model = model;
     }
 
+    @Override
     public void run() {
         try {
             ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(fileSelected));
