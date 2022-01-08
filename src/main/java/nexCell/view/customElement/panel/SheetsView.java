@@ -13,11 +13,11 @@ public class SheetsView extends JPanel {
     private final SheetStructure sheetStructure;
     private final MyDataModel model;
 
-    public SheetsView(JTextField CELLSELECTED, JTextField FORMULA) {
+    public SheetsView(SheetStructure sheetStructure, MyDataModel model, JTextField CELL_SELECTED, JTextField FORMULA) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        sheetStructure = new SheetStructure();
-        SHEETS = new MyJTable(CELLSELECTED, FORMULA);
-        model = new MyDataModel(sheetStructure);
+        this.sheetStructure = sheetStructure;
+        this.model = model;
+        this.SHEETS = new MyJTable(CELL_SELECTED, FORMULA);
 
         SHEETS.setModel(this.model);
         SHEETS.changeSelection(0, 0, false, false);

@@ -1,5 +1,7 @@
 package nexCell.view;
 
+import nexCell.controller.MyDataModel;
+import nexCell.controller.SheetStructure;
 import nexCell.controller.io.SaveFile;
 import nexCell.view.customElement.panel.InfoPanel;
 import nexCell.view.customElement.panel.SheetsView;
@@ -13,8 +15,8 @@ import java.io.File;
 public class Gui extends JFrame {
 
     private static final JScrollPane SCROLLPANE = new JScrollPane();
-    private final InfoPanel INFO = new InfoPanel();
-    private final SheetsView SHEETS = new SheetsView(INFO.getCELLSELECTED(), INFO.getFORMULA());
+    private final InfoPanel INFO;
+    private final SheetsView SHEETS;
     private final JPanel PANELBOTTOM = new JPanel();
 
     public Gui() {
@@ -23,6 +25,11 @@ public class Gui extends JFrame {
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
         this.setMinimumSize(new Dimension(600, 400));
         this.setResizable(true);
+
+        SheetStructure sheetStructure = new SheetStructure();
+        MyDataModel model = new MyDataModel(sheetStructure);
+        this.INFO = new InfoPanel(model);
+        this.SHEETS = new SheetsView(sheetStructure, model, this.INFO.getCELL_SELECTED(), this.INFO.getFORMULA());
 
         this.setJMenuBar(new MenuBar(this));
 
