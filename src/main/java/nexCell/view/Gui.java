@@ -1,5 +1,6 @@
 package nexCell.view;
 
+import nexCell.controller.io.SaveFile;
 import nexCell.view.customElement.panel.InfoPanel;
 import nexCell.view.customElement.panel.SheetsView;
 import nexCell.view.menu.MenuBar;
@@ -7,6 +8,7 @@ import nexCell.view.rowHeader.RowHeader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class Gui extends JFrame {
 
@@ -40,5 +42,11 @@ public class Gui extends JFrame {
 
     public SheetsView getSHEETS() {
         return SHEETS;
+    }
+
+    public Runnable saveTemp(File file) {
+        Runnable runnable = new SaveFile(file, this.getSHEETS().getSheetStructure().getMatrix());
+        new Thread(runnable).start();
+        return runnable;
     }
 }
