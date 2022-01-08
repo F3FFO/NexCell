@@ -17,6 +17,8 @@ public class MyJTable extends JTable {
         super.setCellSelectionEnabled(true);
         this.setShowGrid(true);
         this.setGridColor(Color.LIGHT_GRAY);
+        this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        this.getTableHeader().setReorderingAllowed(Boolean.FALSE);
         this.CELLSELECTED = CELLSELECTED;
     }
 
@@ -49,18 +51,14 @@ public class MyJTable extends JTable {
         JComponent cellRenderer = (JComponent) renderer.getTableCellRendererComponent(this, value, isSelected, hasFocus, row, column);
         Border border = new CompoundBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK), new EmptyBorder(0, 0, 0, 0));
 
-        if (isSelected)
+        if (isSelected) {
             cellRenderer.setBackground(new Color(87, 87, 87, 100));
-        else
+            this.CELLSELECTED.setText(this.getColumnName(column) + "" + (this.getSelectedRow() + 1));
+        } else
             cellRenderer.setBackground(null);
 
-        if (hasFocus)
+        if ((isSelected && hasFocus))
             cellRenderer.setBorder(border);
-
-        if ((isSelected && hasFocus)) {
-            cellRenderer.setBorder(border);
-            this.CELLSELECTED.setText(this.getColumnName(column) + "" + (this.getSelectedRow() + 1));
-        }
         return cellRenderer;
     }
 }
