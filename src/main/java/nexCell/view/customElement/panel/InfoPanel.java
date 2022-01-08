@@ -16,7 +16,7 @@ public class InfoPanel extends JPanel {
         this.setLayout(new MigLayout("fillx"));
 
         CELLSELECTED.setEditable(false);
-        CELLSELECTED.setMinimumSize(new Dimension(150, CELLSELECTED.getPreferredSize().height));
+        CELLSELECTED.setMinimumSize(new Dimension(100, CELLSELECTED.getPreferredSize().height));
 
         this.add(CELLSELECTED);
         this.add(LABEL1);
