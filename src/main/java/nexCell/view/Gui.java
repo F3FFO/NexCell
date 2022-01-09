@@ -28,7 +28,7 @@ public class Gui extends JFrame {
 
         SheetStructure sheetStructure = new SheetStructure();
         MyDataModel model = new MyDataModel(sheetStructure);
-        this.INFO = new InfoPanel(model);
+        this.INFO = new InfoPanel();
         this.SHEETS = new SheetsView(sheetStructure, model, this.INFO.getCELL_SELECTED(), this.INFO.getFORMULA());
 
         this.setJMenuBar(new MenuBar(this));
