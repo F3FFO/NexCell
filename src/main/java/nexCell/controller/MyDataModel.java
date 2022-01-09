@@ -62,7 +62,8 @@ public class MyDataModel extends DefaultTableModel {
                 sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
                 isFire = false;
             } else if (isFire) {
-                for (int i = 0; i < sheetStructure.getCellFormula().size(); i++) {
+                int size = sheetStructure.getCellFormula().size();
+                for (int i = 0; i < size; i++) {
                     if (sheetStructure.getCellFormula().get(i).getRow() != row || sheetStructure.getCellFormula().get(i).getColumn() != column)
                         sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
                     else

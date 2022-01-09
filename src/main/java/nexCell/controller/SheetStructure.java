@@ -71,6 +71,11 @@ public class SheetStructure {
         matrix.set(row, matrix.get(row)).set(col, general);
     }
 
+    private int calcOperand(Object input) {
+        String temp = input.toString().substring(2);
+        return 2 + ((temp.contains("+")) ? temp.indexOf('+') : (temp.contains("*")) ? temp.indexOf('*') : (temp.contains("/")) ? temp.indexOf('/') : (temp.contains("-")) ? temp.indexOf('-') : -1);
+    }
+
     private Number[] extractPos(Object input) {
         Pattern ptnNum = Pattern.compile(CellFormula.PATTERNNUMBER);
         Pattern ptnMix1 = Pattern.compile(CellFormula.PATTERNMIX1);
@@ -83,8 +88,7 @@ public class SheetStructure {
         Matcher m3 = ptnMix2.matcher(input.toString());
 
         Number[] data = new Number[4];
-        String temp = input.toString().substring(2);
-        int op = 2 + ((temp.contains("+")) ? temp.indexOf('+') : (temp.contains("*")) ? temp.indexOf('*') : (temp.contains("/")) ? temp.indexOf('/') : (temp.contains("-")) ? temp.indexOf('-') : -1);
+        int op = calcOperand(input);
         input = input.toString().replaceAll(",", ".");
 
         if (m1.matches()) {
@@ -93,11 +97,12 @@ public class SheetStructure {
             data[2] = Double.parseDouble(input.toString().substring(op + 1));
         } else if (m2.matches()) {
             data[0] = -2;
-            Matcher matcher = patternLet.matcher(input.toString());
+            String temp = input.toString().substring(1, op);
+            Matcher matcher = patternLet.matcher(temp);
             if (matcher.find())
                 data[1] = matcher.group(0).charAt(0) - 'A';
 
-            matcher = patternNum.matcher(input.toString());
+            matcher = patternNum.matcher(temp);
             if (matcher.find())
                 data[2] = Integer.parseInt(matcher.group(0));
 
@@ -105,11 +110,12 @@ public class SheetStructure {
         } else if (m3.matches()) {
             data[0] = -3;
             data[1] = Double.parseDouble(input.toString().substring(1, op));
-            Matcher matcher = patternLet.matcher(input.toString());
+            String temp = input.toString().substring(op + 1);
+            Matcher matcher = patternLet.matcher(temp);
             if (matcher.find())
                 data[2] = matcher.group(0).charAt(0) - 'A';
 
-            matcher = patternNum.matcher(input.toString());
+            matcher = patternNum.matcher(temp);
             if (matcher.find())
                 data[3] = Integer.parseInt(matcher.group(0));
         } else {
@@ -130,17 +136,7 @@ public class SheetStructure {
 
     public Object calcFormula(Object input) {
         Number[] values = extractPos(input);
-        for (int i = 0; i < values.length; i++) {
-            System.out.println(values[i]);
-        }
-        String temp = input.toString().substring(2);
-        char op = '-';
-        if (temp.contains("+"))
-            op = '+';
-        else if (temp.contains("*"))
-            op = '*';
-        else if (temp.contains("/"))
-            op = '/';
+        char op = input.toString().charAt(calcOperand(input));
 
         try {
             if (values[0].intValue() == -1) {
