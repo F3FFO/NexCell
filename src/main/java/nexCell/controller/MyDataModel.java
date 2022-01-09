@@ -60,9 +60,10 @@ public class MyDataModel extends DefaultTableModel {
             ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))).setValue(res);
             if (isFire && sheetStructure.getCellFormula().isEmpty()) {
                 sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
+                isFire = false;
             } else if (isFire) {
                 for (int i = 0; i < sheetStructure.getCellFormula().size(); i++) {
-                    if (sheetStructure.getCellFormula().get(i).getRow() != row && sheetStructure.getCellFormula().get(i).getColumn() != column)
+                    if (sheetStructure.getCellFormula().get(i).getRow() != row || sheetStructure.getCellFormula().get(i).getColumn() != column)
                         sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
                     else
                         sheetStructure.getCellFormula().set(i, ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));

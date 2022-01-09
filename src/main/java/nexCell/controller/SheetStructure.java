@@ -83,7 +83,8 @@ public class SheetStructure {
         Matcher m3 = ptnMix2.matcher(input.toString());
 
         Number[] data = new Number[4];
-        int op = (input.toString().contains("+")) ? input.toString().indexOf('+') : (input.toString().contains("-")) ? input.toString().indexOf('-') : (input.toString().contains("*")) ? input.toString().indexOf('*') : (input.toString().contains("/")) ? input.toString().indexOf('/') : -1;
+        String temp = input.toString().substring(2);
+        int op = 2 + ((temp.contains("+")) ? temp.indexOf('+') : (temp.contains("*")) ? temp.indexOf('*') : (temp.contains("/")) ? temp.indexOf('/') : (temp.contains("-")) ? temp.indexOf('-') : -1);
         input = input.toString().replaceAll(",", ".");
 
         if (m1.matches()) {
@@ -129,28 +130,32 @@ public class SheetStructure {
 
     public Object calcFormula(Object input) {
         Number[] values = extractPos(input);
-        char op = '+';
-        if (input.toString().contains("-"))
-            op = '-';
-        else if (input.toString().contains("*"))
+        for (int i = 0; i < values.length; i++) {
+            System.out.println(values[i]);
+        }
+        String temp = input.toString().substring(2);
+        char op = '-';
+        if (temp.contains("+"))
+            op = '+';
+        else if (temp.contains("*"))
             op = '*';
-        else if (input.toString().contains("/"))
+        else if (temp.contains("/"))
             op = '/';
 
         try {
             if (values[0].intValue() == -1) {
-                return new CellFormula().doOp(values[1], values[2], op);
+                return CellFormula.doOp(values[1], values[2], op);
             } else if (values[0].intValue() == -2) {
                 Object val1 = matrix.get(values[2].intValue() - 1).get(values[1].intValue()).getValue();
-                return new CellFormula().doOp((Number) val1, values[3], op);
+                return CellFormula.doOp((Number) val1, values[3], op);
             } else if (values[0].intValue() == -3) {
                 Object val2 = matrix.get(values[3].intValue() - 1).get(values[2].intValue()).getValue();
-                return new CellFormula().doOp(values[1], (Number) val2, op);
+                return CellFormula.doOp(values[1], (Number) val2, op);
             } else {
                 Object val1 = matrix.get(values[1].intValue() - 1).get(values[0].intValue()).getValue();
                 Object val2 = matrix.get(values[3].intValue() - 1).get(values[2].intValue()).getValue();
 
-                return new CellFormula().doOp((Number) val1, (Number) val2, op);
+                return CellFormula.doOp((Number) val1, (Number) val2, op);
             }
         } catch (Exception e) {
             return CellFormula.ERROR;
