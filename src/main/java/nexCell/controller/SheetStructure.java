@@ -49,9 +49,9 @@ public class SheetStructure {
             NumberFormat.getInstance().parse(value.toString());
             return CELL_NUMBER;
         } catch (ParseException | NumberFormatException e) {
-            if (!Pattern.matches(CellFormula.PATTERN, value.toString()))
+            if (!(Pattern.matches(CellFormula.PATTERN, value.toString())) && !value.toString().equals(""))
                 return CELL_STRING;
-            else if (value != "")
+            else if (!value.toString().equals(""))
                 return CELL_FORMULA;
         }
         return CELL;

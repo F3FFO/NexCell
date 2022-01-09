@@ -85,7 +85,9 @@ public class MyDataModel extends DefaultTableModel {
             if (!((CellFormula) sheetStructure.getMatrix().get(row).get(column)).getOriginalValue().equals(value.toString()))
                 this.setValueAt(value, row, column, true);
         } else {
-            if (value != sheetStructure.getMatrix().get(row).get(column).getValue())
+            if (value == null && sheetStructure.getMatrix().get(row).get(column).getValue() != null)
+                this.setValueAt("", row, column, true);
+            else if (value != sheetStructure.getMatrix().get(row).get(column).getValue())
                 this.setValueAt(value, row, column, true);
         }
     }
