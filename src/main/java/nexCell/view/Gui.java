@@ -31,7 +31,7 @@ public class Gui extends JFrame {
         this.INFO = new InfoPanel();
         this.SHEETS = new SheetsView(sheetStructure, model, this.INFO.getCELL_SELECTED(), this.INFO.getFORMULA());
 
-        this.setJMenuBar(new MenuBar(this));
+        this.setJMenuBar(new MenuBar(this, sheetStructure, model, this.SHEETS));
 
         this.add(INFO, BorderLayout.NORTH);
 
