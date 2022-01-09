@@ -64,11 +64,12 @@ public class MyJTable extends JTable {
 
         if ((isSelected && hasFocus)) {
             cellRenderer.setBackground(null);
+            cellRenderer.setForeground(Color.BLACK);
             cellRenderer.setBorder(border);
             if (value == null)
                 FORMULA.setText("");
             else {
-                if (value.toString().equals(CellFormula.ERROR))
+                if (((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column) instanceof CellFormula)
                     FORMULA.setText(((CellFormula) ((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column)).getOriginalValue());
                 else
                     FORMULA.setText(value.toString());
