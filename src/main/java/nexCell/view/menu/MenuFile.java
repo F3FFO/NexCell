@@ -8,48 +8,107 @@ import nexCell.view.Gui;
 import nexCell.view.customElement.panel.SheetsView;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Locale;
 
 public class MenuFile extends JMenu {
 
-    private SheetStructure sheetStructure;
-    private MyDataModel model;
+    private JMenuItem newMenuItem = new JMenuItem();
+    private JMenuItem openMenuItem = new JMenuItem();
+    private JMenuItem saveAsMenuItem = new JMenuItem();
+    private JMenuItem exitMenuItem = new JMenuItem();
 
     public MenuFile(Gui frame, SheetStructure sheetStructure, MyDataModel model, SheetsView SHEETS) {
         super("File");
-        this.sheetStructure = sheetStructure;
-        this.model = model;
-        int ELEMENT = 5;
-        JMenuItem[] item = new JMenuItem[ELEMENT];
-        item[0] = new JMenuItem("Nuovo");
-        item[0].addActionListener(actionEvent -> {
+        //---- newMenuItem ----
+        newMenuItem.setText("Nuovo");
+        newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        newMenuItem.addActionListener(new NewActionPerformed(sheetStructure, model, SHEETS));
+        this.add(newMenuItem);
+        //---- openMenuItem ----
+        openMenuItem.setText("Apri...");
+        openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        openMenuItem.addActionListener(new OpenActionPerformed(this, model));
+        this.add(openMenuItem);
+        //---- saveAsMenuItem ----
+        saveAsMenuItem.setText("Salva");
+        saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        saveAsMenuItem.addActionListener(new SaveAsActionPerformed(this, sheetStructure));
+        this.add(saveAsMenuItem);
+        this.addSeparator();
+        //---- exitMenuItem ----
+        exitMenuItem.setText("Esci");
+        exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        exitMenuItem.addActionListener(new ExitActionPerformed(frame));
+        this.add(exitMenuItem);
+    }
+
+    private static class NewActionPerformed implements ActionListener {
+
+        private SheetStructure sheetStructure;
+        private MyDataModel model;
+        private final SheetsView SHEETS;
+
+        public NewActionPerformed(SheetStructure sheetStructure, MyDataModel model, SheetsView SHEETS) {
+            this.sheetStructure = sheetStructure;
+            this.model = model;
+            this.SHEETS = SHEETS;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
             this.sheetStructure = new SheetStructure();
             this.model.setRowCount(0);
-            this.model = new MyDataModel(this.sheetStructure);
-            SHEETS.getSHEETS().setModel(this.model);
-        });
+            this.model = new MyDataModel(sheetStructure);
+            this.SHEETS.getSHEETS().setModel(model);
+        }
+    }
 
-        item[1] = new JMenuItem("Apri");
-        item[1].addActionListener(actionEvent -> {
+    private static class OpenActionPerformed implements ActionListener {
+
+        private final JMenu menu;
+        private final MyDataModel model;
+
+        public OpenActionPerformed(JMenu menu, MyDataModel model) {
+            this.menu = menu;
+            this.model = model;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Apri");
             fileChooser.setLocale(Locale.getDefault());
 
-            int userSelection = fileChooser.showOpenDialog(this);
+            int userSelection = fileChooser.showOpenDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 Runnable runnable = new OpenFile(fileChooser.getSelectedFile(), this.model);
 
                 new Thread(runnable).start();
             }
-        });
+        }
+    }
 
-        item[2] = new JMenuItem("Salva");
-        item[2].addActionListener(actionEvent -> {
+    private static class SaveAsActionPerformed implements ActionListener {
+
+        private final JMenu menu;
+        private final SheetStructure sheetStructure;
+
+        public SaveAsActionPerformed(JMenu menu, SheetStructure sheetStructure) {
+            this.menu = menu;
+            this.sheetStructure = sheetStructure;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Salva");
             fileChooser.setLocale(Locale.getDefault());
 
-            int userSelection = fileChooser.showSaveDialog(this);
+            int userSelection = fileChooser.showSaveDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 System.out.println(fileChooser.getSelectedFile().getName());
                 // TODO check if file name field is not empty
@@ -57,24 +116,20 @@ public class MenuFile extends JMenu {
 
                 new Thread(runnable).start();
             }
-        });
-        item[3] = new JMenuItem("Salva con nome...");
-        item[3].addActionListener(actionEvent -> {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Salva con nome...");
-            fileChooser.setLocale(Locale.getDefault());
+        }
+    }
 
-            int userSelection = fileChooser.showSaveDialog(this);
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                Runnable runnable = new SaveFile(fileChooser.getSelectedFile(), this.sheetStructure.getMatrix());
+    private static class ExitActionPerformed implements ActionListener {
 
-                new Thread(runnable).start();
-            }
-        });
-        item[4] = new JMenuItem("Esci");
-        item[4].addActionListener(actionEvent -> {
-            frame.dispose();
-        });
-        for (JMenuItem jMenuItem : item) this.add(jMenuItem);
+        private final Gui frame;
+
+        public ExitActionPerformed(Gui frame) {
+            this.frame = frame;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            this.frame.dispose();
+        }
     }
 }
