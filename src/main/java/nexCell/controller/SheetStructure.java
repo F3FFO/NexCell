@@ -1,9 +1,25 @@
+/*
+ * Copyright 2022 F3FFO - Federico Pierantoni
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package nexCell.controller;
 
-import nexCell.model.cell.Cell;
-import nexCell.model.cell.CellFormula;
-import nexCell.model.cell.CellNumber;
-import nexCell.model.cell.CellString;
+import nexCell.cell.Cell;
+import nexCell.cell.CellFormula;
+import nexCell.cell.CellNumber;
+import nexCell.cell.CellString;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -77,9 +93,9 @@ public class SheetStructure {
     }
 
     private Number[] extractPos(Object input) {
-        Pattern ptnNum = Pattern.compile(CellFormula.PATTERNNUMBER);
-        Pattern ptnMix1 = Pattern.compile(CellFormula.PATTERNMIX1);
-        Pattern ptnMix2 = Pattern.compile(CellFormula.PATTERNMIX2);
+        Pattern ptnNum = Pattern.compile(CellFormula.PATTERN_NUMBER);
+        Pattern ptnMix1 = Pattern.compile(CellFormula.PATTERN_MIX1);
+        Pattern ptnMix2 = Pattern.compile(CellFormula.PATTERN_MIX2);
         Pattern patternLet = Pattern.compile("[A-Z]+");
         Pattern patternNum = Pattern.compile("([0-9]+)(([\\.]?[0-9]+)?)");
 
