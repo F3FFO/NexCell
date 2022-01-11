@@ -9,13 +9,12 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
 public class MyJTable extends JTable {
 
-    private JTextField CELLSELECTED;
-    private JTextField FORMULA;
+    private final JTextField CELLSELECTED;
+    private final JTextField FORMULA;
 
     public MyJTable(JTextField CELLSELECTED, JTextField FORMULA) {
         super.setCellSelectionEnabled(true);
@@ -25,18 +24,6 @@ public class MyJTable extends JTable {
         this.getTableHeader().setReorderingAllowed(Boolean.FALSE);
         this.CELLSELECTED = CELLSELECTED;
         this.FORMULA = FORMULA;
-    }
-
-    @Override
-    public void doLayout() {
-        if (tableHeader != null) {
-            if (tableHeader.getResizingColumn() == null) {
-                TableColumnModel tcm = getColumnModel();
-                int lastColumn = tcm.getColumnCount() - 1;
-                tableHeader.setResizingColumn(tcm.getColumn(lastColumn));
-            }
-        }
-        super.doLayout();
     }
 
     @Override
@@ -62,7 +49,7 @@ public class MyJTable extends JTable {
         } else
             cellRenderer.setBackground(null);
 
-        if ((isSelected && hasFocus)) {
+        if (isSelected && hasFocus) {
             cellRenderer.setBackground(null);
             cellRenderer.setForeground(Color.BLACK);
             cellRenderer.setBorder(border);
