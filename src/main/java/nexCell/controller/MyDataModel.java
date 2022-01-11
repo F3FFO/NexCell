@@ -60,9 +60,11 @@ public class MyDataModel extends DefaultTableModel {
             ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))).setValue(res);
             if (isFire && sheetStructure.getCellFormula().isEmpty()) {
                 sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
+                isFire = false;
             } else if (isFire) {
-                for (int i = 0; i < sheetStructure.getCellFormula().size(); i++) {
-                    if (sheetStructure.getCellFormula().get(i).getRow() != row && sheetStructure.getCellFormula().get(i).getColumn() != column)
+                int size = sheetStructure.getCellFormula().size();
+                for (int i = 0; i < size; i++) {
+                    if (sheetStructure.getCellFormula().get(i).getRow() != row || sheetStructure.getCellFormula().get(i).getColumn() != column)
                         sheetStructure.getCellFormula().add(((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
                     else
                         sheetStructure.getCellFormula().set(i, ((CellFormula) (sheetStructure.getMatrix().get(row).get(column))));
@@ -83,7 +85,9 @@ public class MyDataModel extends DefaultTableModel {
             if (!((CellFormula) sheetStructure.getMatrix().get(row).get(column)).getOriginalValue().equals(value.toString()))
                 this.setValueAt(value, row, column, true);
         } else {
-            if (value != sheetStructure.getMatrix().get(row).get(column).getValue())
+            if (value == null && sheetStructure.getMatrix().get(row).get(column).getValue() != null)
+                this.setValueAt("", row, column, true);
+            else if (value != sheetStructure.getMatrix().get(row).get(column).getValue())
                 this.setValueAt(value, row, column, true);
         }
     }

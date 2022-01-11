@@ -4,8 +4,6 @@ import nexCell.controller.SheetStructure;
 import nexCell.model.cell.CellFormula;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class MyCellEditor extends DefaultCellEditor {
