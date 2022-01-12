@@ -22,7 +22,7 @@ import nexCell.view.customElement.MyJTable;
 import javax.swing.*;
 
 /**
- * This class is the class the define the row header of the JTable.
+ * This class the define the row header of the JTable.
  *
  * @author Federico Pierantoni
  */

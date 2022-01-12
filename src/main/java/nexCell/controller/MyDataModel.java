@@ -57,7 +57,7 @@ public class MyDataModel extends DefaultTableModel {
     }
 
     /**
-     * Returns the {Vector} of the row identifier: {@link MyDataModel#rowIdentifiers}.
+     * Returns the Vector of the row identifier: {@link MyDataModel#rowIdentifiers}.
      *
      * @return the Vector of the row identifier
      */

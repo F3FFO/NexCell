@@ -22,8 +22,19 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
+/**
+ * This class define the row renderer of the JTable.
+ *
+ * @author Federico Pierantoni
+ */
 public class RowRenderer extends JLabel implements ListCellRenderer<Integer> {
 
+    /**
+     * Construct and initialize the header.
+     *
+     * @param SHEETS JTable: {@link MyJTable}
+     * @see MyJTable
+     */
     public RowRenderer(MyJTable SHEETS) {
         JTableHeader header = SHEETS.getTableHeader();
         this.setOpaque(true);
