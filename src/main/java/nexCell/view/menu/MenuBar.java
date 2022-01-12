@@ -23,8 +23,25 @@ import nexCell.view.customElement.panel.SheetsView;
 
 import javax.swing.*;
 
+/**
+ * This class is contains objects for each menu item.
+ *
+ * @author Federico Pierantoni
+ */
 public class MenuBar extends JMenuBar {
 
+    /**
+     * Construct the objects of the JMenuBar.
+     *
+     * @param frame          main JFrame
+     * @param sheetStructure data structure
+     * @param model          model of the Jtable
+     * @param SHEETS         panel to modify
+     * @see Gui
+     * @see SheetStructure
+     * @see MyDataModel
+     * @see SheetsView
+     */
     public MenuBar(Gui frame, SheetStructure sheetStructure, MyDataModel model, SheetsView SHEETS) {
         this.add(new MenuFile(frame, sheetStructure, model, SHEETS));
     }

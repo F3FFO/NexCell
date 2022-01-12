@@ -21,8 +21,20 @@ import nexCell.view.customElement.MyJTable;
 
 import javax.swing.*;
 
+/**
+ * This class is the class the define the row header of the JTable.
+ *
+ * @author Federico Pierantoni
+ */
 public class RowHeader extends JList<Integer> {
 
+    /**
+     * Construct and initialize the header.
+     *
+     * @param SHEETS JTable: {@link MyJTable}
+     * @see MyJTable
+     * @see RowRenderer
+     */
     public RowHeader(MyJTable SHEETS) {
         this.setListData(((MyDataModel) SHEETS.getModel()).getRowIdentifiers());
         this.setFixedCellWidth(50);

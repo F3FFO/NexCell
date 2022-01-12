@@ -21,8 +21,20 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
+/**
+ * This class is a redefinition of generic JTextField.
+ *
+ * @author Federico Pierantoni
+ */
 public class TextFieldCell extends JTextField {
 
+    /**
+     * Construct the JTextField and add a DocumentListener.
+     *
+     * @param FORMULA {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
+     * @see nexCell.view.customElement.panel.InfoPanel
+     * @see DocumentListener
+     */
     public TextFieldCell(JTextField FORMULA) {
         super("");
         this.setBorder(null);
@@ -43,6 +55,12 @@ public class TextFieldCell extends JTextField {
         });
     }
 
+    /**
+     * Set the text of JTextField.
+     *
+     * @param FORMULA       {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
+     * @param documentEvent contains the data entered by the user
+     */
     private void setText(JTextField FORMULA, DocumentEvent documentEvent) {
         try {
             FORMULA.setText(documentEvent.getDocument().getText(0, documentEvent.getDocument().getLength()));

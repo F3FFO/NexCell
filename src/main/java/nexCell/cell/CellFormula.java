@@ -99,17 +99,17 @@ public class CellFormula extends Cell implements Serializable {
     /**
      * Return the calculated value.
      *
-     * @param val1 value of the first operand of the numerical operation
-     * @param val2 value of the second operand of the numerical operation
-     * @param op   type of numerical operation
+     * @param val1   value of the first operand of the numerical operation
+     * @param val2   value of the second operand of the numerical operation
+     * @param symbol type of numerical operation
      * @return the calculated value
      */
-    public static Number doOp(Number val1, Number val2, char op) {
-        if (op == '+') {
+    public static Number doOp(Number val1, Number val2, char symbol) {
+        if (symbol == '+') {
             return val1.doubleValue() + val2.doubleValue();
-        } else if (op == '-') {
+        } else if (symbol == '-') {
             return val1.doubleValue() - val2.doubleValue();
-        } else if (op == '*') {
+        } else if (symbol == '*') {
             return val1.doubleValue() * val2.doubleValue();
         } else {
             return val1.doubleValue() / val2.doubleValue();

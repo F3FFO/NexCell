@@ -21,12 +21,26 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class is the top panel.
+ *
+ * @author Federico Pierantoni
+ */
 public class InfoPanel extends JPanel {
 
+    /**
+     * JTextField which contains coordinates of the cell selected by the user
+     */
     private final JTextField CELL_SELECTED = new JTextField("");
     private static final JLabel LABEL1 = new JLabel("|");
+    /**
+     * JTextField which contains the original values inserted by the user in the cell
+     */
     private final JTextField FORMULA = new JTextField("");
 
+    /**
+     * Construct the panel and initialize the object.
+     */
     public InfoPanel() {
         this.setLayout(new MigLayout("fillx"));
 
@@ -38,10 +52,20 @@ public class InfoPanel extends JPanel {
         this.add(FORMULA, "pushx, growx");
     }
 
+    /**
+     * Return JTextField that contain coordinates of the cell selected by the user.
+     *
+     * @return JTextField that contain coordinates of the cell selected by the user
+     */
     public JTextField getCELL_SELECTED() {
         return CELL_SELECTED;
     }
 
+    /**
+     * Returns JTextField which contains the original values inserted by the user in the cell.
+     *
+     * @return JTextField which contains the original values inserted by the user in the cell
+     */
     public JTextField getFORMULA() {
         return FORMULA;
     }
