@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022 F3FFO - Federico Pierantoni
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package nexCell.view.menu;
 
 import nexCell.controller.MyDataModel;
@@ -14,13 +30,42 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Locale;
 
+/**
+ * This class contains file menu item.
+ *
+ * @author Federico Pierantoni
+ */
 public class MenuFile extends JMenu {
 
+    /**
+     * Item 'Nuovo'
+     */
     private JMenuItem newMenuItem = new JMenuItem();
+    /**
+     * Item 'Apri'
+     */
     private JMenuItem openMenuItem = new JMenuItem();
+    /**
+     * Item 'Salva con nome'
+     */
     private JMenuItem saveAsMenuItem = new JMenuItem();
+    /**
+     * Item 'Esci'
+     */
     private JMenuItem exitMenuItem = new JMenuItem();
 
+    /**
+     * Construct the menu.
+     *
+     * @param frame          the main frame
+     * @param sheetStructure data structure
+     * @param model          data model of the JTable
+     * @param SHEETS         the panel which contain the JTable
+     * @see Gui
+     * @see SheetStructure
+     * @see MyDataModel
+     * @see SheetsView
+     */
     public MenuFile(Gui frame, SheetStructure sheetStructure, MyDataModel model, SheetsView SHEETS) {
         super("File");
         //---- newMenuItem ----
@@ -46,6 +91,12 @@ public class MenuFile extends JMenu {
         this.add(exitMenuItem);
     }
 
+    /**
+     * Action listener for 'Nuovo' menu item.
+     * {@link MenuFile#newMenuItem}
+     *
+     * @see java.awt.event.ActionListener
+     */
     private static class NewActionPerformed implements ActionListener {
 
         private SheetStructure sheetStructure;
@@ -67,6 +118,12 @@ public class MenuFile extends JMenu {
         }
     }
 
+    /**
+     * Action listener for 'Apri' menu item.
+     * {@link MenuFile#openMenuItem}
+     *
+     * @see java.awt.event.ActionListener
+     */
     private static class OpenActionPerformed implements ActionListener {
 
         private final JMenu menu;
@@ -82,7 +139,6 @@ public class MenuFile extends JMenu {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Apri");
             fileChooser.setLocale(Locale.getDefault());
-
             int userSelection = fileChooser.showOpenDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 Runnable runnable = new OpenFile(fileChooser.getSelectedFile(), this.model);
@@ -92,6 +148,12 @@ public class MenuFile extends JMenu {
         }
     }
 
+    /**
+     * Action listener for 'Salva con nome' menu item.
+     * {@link MenuFile#saveAsMenuItem}
+     *
+     * @see java.awt.event.ActionListener
+     */
     private static class SaveAsActionPerformed implements ActionListener {
 
         private final JMenu menu;
@@ -119,6 +181,12 @@ public class MenuFile extends JMenu {
         }
     }
 
+    /**
+     * Action listener for 'Esci' menu item.
+     * {@link MenuFile#exitMenuItem}
+     *
+     * @see java.awt.event.ActionListener
+     */
     private static class ExitActionPerformed implements ActionListener {
 
         private final Gui frame;
