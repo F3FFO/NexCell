@@ -16,16 +16,32 @@
 
 package nexCell.view.customElement;
 
-import nexCell.controller.SheetStructure;
 import nexCell.cell.CellFormula;
+import nexCell.controller.SheetStructure;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class is the default editor for table and tree cells.
+ *
+ * @author Federico Pierantoni
+ */
 public class MyCellEditor extends DefaultCellEditor {
 
+    /**
+     * {@link SheetStructure}
+     */
     private final SheetStructure sheetStructure;
 
+    /**
+     * Constructs a DefaultCellEditor that uses a text field.
+     *
+     * @param sheetStructure data structure: {@link SheetStructure}
+     * @param FORMULA        {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
+     * @see SheetStructure
+     * @see nexCell.view.customElement.panel.InfoPanel
+     */
     public MyCellEditor(SheetStructure sheetStructure, JTextField FORMULA) {
         super(new TextFieldCell(FORMULA));
         this.sheetStructure = sheetStructure;

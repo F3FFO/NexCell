@@ -16,8 +16,8 @@
 
 package nexCell.view.customElement;
 
-import nexCell.controller.MyDataModel;
 import nexCell.cell.CellFormula;
+import nexCell.controller.MyDataModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -27,11 +27,29 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
+/**
+ * This class is redefine the JTable.
+ *
+ * @author Federico Pierantoni
+ */
 public class MyJTable extends JTable {
 
+    /**
+     * JTextField representing the selected cell
+     */
     private final JTextField CELLSELECTED;
+    /**
+     * JTextField representing the value of the cell
+     */
     private final JTextField FORMULA;
 
+    /**
+     * Constructs a default JTable that is initialized with a default data model, a default column model, and a default selection model.
+     *
+     * @param CELLSELECTED {@link nexCell.view.customElement.panel.InfoPanel#CELL_SELECTED}
+     * @param FORMULA      {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
+     * @see nexCell.view.customElement.panel.InfoPanel
+     */
     public MyJTable(JTextField CELLSELECTED, JTextField FORMULA) {
         super.setCellSelectionEnabled(true);
         this.setShowGrid(true);
@@ -42,6 +60,15 @@ public class MyJTable extends JTable {
         this.FORMULA = FORMULA;
     }
 
+    /**
+     * Rethink logic behind selection of cells.
+     *
+     * @param renderer the TableCellRenderer to prepare
+     * @param row      the row of the cell to render, where 0 is the first row
+     * @param column   the column of the cell to render, where 0 is the first column
+     * @return the Component under the event location
+     * @see JTable#prepareRenderer(TableCellRenderer, int, int)
+     */
     @Override
     public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
         boolean isSelected = false;

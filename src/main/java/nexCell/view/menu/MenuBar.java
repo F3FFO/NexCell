@@ -24,7 +24,7 @@ import nexCell.view.customElement.panel.SheetsView;
 import javax.swing.*;
 
 /**
- * This class is contains objects for each menu item.
+ * This class contains objects for each menu item.
  *
  * @author Federico Pierantoni
  */
