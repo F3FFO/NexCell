@@ -23,7 +23,6 @@ import nexCell.view.Gui;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -63,12 +62,10 @@ public class Main {
 
             // run autosave
             ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-            try {
-                Runnable save = frame.saveTemp(File.createTempFile(".unsaved", ".tmp"));
-                executor.scheduleAtFixedRate(save, 10, 15, TimeUnit.SECONDS);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            String dir = System.getProperty("java.io.tmpdir");
+            File file = new File(dir, ".unsaved-nexcell.tmp");
+            Runnable save = frame.saveTemp(file);
+            executor.scheduleWithFixedDelay(save, 10, 15, TimeUnit.SECONDS);
 
             // show frame
             frame.pack();
