@@ -16,7 +16,7 @@
 
 package nexCell.view.rowHeader;
 
-import nexCell.view.customElement.MyJTable;
+import nexCell.view.MyJTable;
 
 import javax.swing.*;
 import javax.swing.table.JTableHeader;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package nexCell.view.customElement.panel;
+package nexCell.view.panel;
 
 import net.miginfocom.swing.MigLayout;
 

@@ -18,7 +18,7 @@ package nexCell.controller.io;
 
 import nexCell.cell.Cell;
 import nexCell.cell.CellFormula;
-import nexCell.controller.MyDataModel;
+import nexCell.controller.DataModel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +37,7 @@ public class OpenFile implements Runnable {
      * Path were the file is stored
      */
     private final File fileSelected;
-    private final MyDataModel model;
+    private final DataModel model;
 
     /**
      * Initialize the attributes.
@@ -45,7 +45,7 @@ public class OpenFile implements Runnable {
      * @param fileSelected {@link OpenFile#fileSelected}
      * @param model        model of the JTable
      */
-    public OpenFile(File fileSelected, MyDataModel model) {
+    public OpenFile(File fileSelected, DataModel model) {
         this.fileSelected = fileSelected;
         this.model = model;
     }

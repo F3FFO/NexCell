@@ -16,8 +16,8 @@
 
 package nexCell.view.rowHeader;
 
-import nexCell.controller.MyDataModel;
-import nexCell.view.customElement.MyJTable;
+import nexCell.controller.DataModel;
+import nexCell.view.MyJTable;
 
 import javax.swing.*;
 
@@ -36,7 +36,7 @@ public class RowHeader extends JList<Integer> {
      * @see RowRenderer
      */
     public RowHeader(MyJTable SHEETS) {
-        this.setListData(((MyDataModel) SHEETS.getModel()).getRowIdentifiers());
+        this.setListData(((DataModel) SHEETS.getModel()).getRowIdentifiers());
         this.setFixedCellWidth(50);
         this.setFixedCellHeight(SHEETS.getRowHeight());
         this.setCellRenderer(new RowRenderer(SHEETS));

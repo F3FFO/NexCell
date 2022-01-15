@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package nexCell.view.customElement.panel;
+package nexCell.view.panel;
 
-import nexCell.controller.MyDataModel;
+import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
-import nexCell.view.customElement.MyCellEditor;
-import nexCell.view.customElement.MyJTable;
+import nexCell.view.MyCellEditor;
+import nexCell.view.MyJTable;
 
 import javax.swing.*;
 
@@ -33,7 +33,7 @@ public class SheetsView extends JPanel {
     /**
      * Object of the JTable
      *
-     * @see nexCell.view.customElement.MyJTable
+     * @see MyJTable
      */
     private final MyJTable SHEETS;
     /**
@@ -51,10 +51,10 @@ public class SheetsView extends JPanel {
      * @param CELL_SELECTED  JTextField object that contain cell selected: {@link InfoPanel#CELL_SELECTED}
      * @param FORMULA        JTextField object that contain input user: {@link InfoPanel#FORMULA}
      * @see nexCell.controller.SheetStructure
-     * @see nexCell.view.customElement.MyJTable
-     * @see nexCell.view.customElement.panel.InfoPanel
+     * @see MyJTable
+     * @see InfoPanel
      */
-    public SheetsView(SheetStructure sheetStructure, MyDataModel model, JTextField CELL_SELECTED, JTextField FORMULA) {
+    public SheetsView(SheetStructure sheetStructure, DataModel model, JTextField CELL_SELECTED, JTextField FORMULA) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.sheetStructure = sheetStructure;
         this.SHEETS = new MyJTable(CELL_SELECTED, FORMULA);

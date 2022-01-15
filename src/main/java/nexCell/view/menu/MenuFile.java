@@ -16,12 +16,12 @@
 
 package nexCell.view.menu;
 
-import nexCell.controller.MyDataModel;
+import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
 import nexCell.controller.io.OpenFile;
 import nexCell.controller.io.SaveFile;
 import nexCell.view.Gui;
-import nexCell.view.customElement.panel.SheetsView;
+import nexCell.view.panel.SheetsView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,10 +63,10 @@ public class MenuFile extends JMenu {
      * @param SHEETS         the panel which contain the JTable
      * @see Gui
      * @see SheetStructure
-     * @see MyDataModel
+     * @see DataModel
      * @see SheetsView
      */
-    public MenuFile(Gui frame, SheetStructure sheetStructure, MyDataModel model, SheetsView SHEETS) {
+    public MenuFile(Gui frame, SheetStructure sheetStructure, DataModel model, SheetsView SHEETS) {
         super("File");
         //---- newMenuItem ----
         newMenuItem.setText("Nuovo");
@@ -100,10 +100,10 @@ public class MenuFile extends JMenu {
     private static class NewActionPerformed implements ActionListener {
 
         private SheetStructure sheetStructure;
-        private MyDataModel model;
+        private DataModel model;
         private final SheetsView SHEETS;
 
-        public NewActionPerformed(SheetStructure sheetStructure, MyDataModel model, SheetsView SHEETS) {
+        public NewActionPerformed(SheetStructure sheetStructure, DataModel model, SheetsView SHEETS) {
             this.sheetStructure = sheetStructure;
             this.model = model;
             this.SHEETS = SHEETS;
@@ -113,7 +113,7 @@ public class MenuFile extends JMenu {
         public void actionPerformed(ActionEvent actionEvent) {
             this.sheetStructure = new SheetStructure();
             this.model.setRowCount(0);
-            this.model = new MyDataModel(sheetStructure);
+            this.model = new DataModel(sheetStructure);
             this.SHEETS.getSHEETS().setModel(model);
         }
     }
@@ -127,9 +127,9 @@ public class MenuFile extends JMenu {
     private static class OpenActionPerformed implements ActionListener {
 
         private final JMenu menu;
-        private final MyDataModel model;
+        private final DataModel model;
 
-        public OpenActionPerformed(JMenu menu, MyDataModel model) {
+        public OpenActionPerformed(JMenu menu, DataModel model) {
             this.menu = menu;
             this.model = model;
         }
@@ -139,10 +139,11 @@ public class MenuFile extends JMenu {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Apri");
             fileChooser.setLocale(Locale.getDefault());
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setAcceptAllFileFilterUsed(false);
             int userSelection = fileChooser.showOpenDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 Runnable runnable = new OpenFile(fileChooser.getSelectedFile(), this.model);
-
                 new Thread(runnable).start();
             }
         }
@@ -173,9 +174,7 @@ public class MenuFile extends JMenu {
             int userSelection = fileChooser.showSaveDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 System.out.println(fileChooser.getSelectedFile().getName());
-                // TODO check if file name field is not empty
                 Runnable runnable = new SaveFile(fileChooser.getSelectedFile(), this.sheetStructure.getMatrix());
-
                 new Thread(runnable).start();
             }
         }

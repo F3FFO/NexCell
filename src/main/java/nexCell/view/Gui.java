@@ -17,12 +17,12 @@
 package nexCell.view;
 
 import net.miginfocom.swing.MigLayout;
-import nexCell.controller.MyDataModel;
+import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
 import nexCell.controller.io.SaveFile;
-import nexCell.view.customElement.panel.InfoPanel;
-import nexCell.view.customElement.panel.SheetsView;
 import nexCell.view.menu.MenuBar;
+import nexCell.view.panel.InfoPanel;
+import nexCell.view.panel.SheetsView;
 import nexCell.view.rowHeader.RowHeader;
 
 import javax.swing.*;
@@ -61,7 +61,7 @@ public class Gui extends JFrame {
 
         // initialize the main object
         SheetStructure sheetStructure = new SheetStructure();
-        MyDataModel model = new MyDataModel(sheetStructure);
+        DataModel model = new DataModel(sheetStructure);
         this.INFO = new InfoPanel();
         this.SHEETS = new SheetsView(sheetStructure, model, this.INFO.getCELL_SELECTED(), this.INFO.getFORMULA());
 

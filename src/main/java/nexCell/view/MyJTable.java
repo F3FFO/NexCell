@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package nexCell.view.customElement;
+package nexCell.view;
 
 import nexCell.cell.CellFormula;
-import nexCell.controller.MyDataModel;
+import nexCell.controller.DataModel;
+import nexCell.view.panel.InfoPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -46,9 +47,9 @@ public class MyJTable extends JTable {
     /**
      * Constructs a default JTable that is initialized with a default data model, a default column model, and a default selection model.
      *
-     * @param CELLSELECTED {@link nexCell.view.customElement.panel.InfoPanel#CELL_SELECTED}
-     * @param FORMULA      {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
-     * @see nexCell.view.customElement.panel.InfoPanel
+     * @param CELLSELECTED {@link InfoPanel#CELL_SELECTED}
+     * @param FORMULA      {@link InfoPanel#FORMULA}
+     * @see InfoPanel
      */
     public MyJTable(JTextField CELLSELECTED, JTextField FORMULA) {
         super.setCellSelectionEnabled(true);
@@ -99,8 +100,8 @@ public class MyJTable extends JTable {
             if (value == null)
                 FORMULA.setText("");
             else {
-                if (((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column) instanceof CellFormula)
-                    FORMULA.setText(((CellFormula) ((MyDataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column)).getOriginalValue());
+                if (((DataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column) instanceof CellFormula)
+                    FORMULA.setText(((CellFormula) ((DataModel) this.getModel()).getSheetStructure().getMatrix().get(row).get(column)).getOriginalValue());
                 else
                     FORMULA.setText(value.toString());
             }

@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package nexCell.view.customElement;
+package nexCell.view;
 
 import nexCell.cell.CellFormula;
 import nexCell.controller.SheetStructure;
+import nexCell.view.panel.InfoPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,9 +39,9 @@ public class MyCellEditor extends DefaultCellEditor {
      * Constructs a DefaultCellEditor that uses a text field.
      *
      * @param sheetStructure data structure: {@link SheetStructure}
-     * @param FORMULA        {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
+     * @param FORMULA        {@link InfoPanel#FORMULA}
      * @see SheetStructure
-     * @see nexCell.view.customElement.panel.InfoPanel
+     * @see InfoPanel
      */
     public MyCellEditor(SheetStructure sheetStructure, JTextField FORMULA) {
         super(new TextFieldCell(FORMULA));

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package nexCell.view.customElement;
+package nexCell.view;
+
+import nexCell.view.panel.InfoPanel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -31,8 +33,8 @@ public class TextFieldCell extends JTextField {
     /**
      * Construct the JTextField and add a DocumentListener.
      *
-     * @param FORMULA {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
-     * @see nexCell.view.customElement.panel.InfoPanel
+     * @param FORMULA {@link InfoPanel#FORMULA}
+     * @see InfoPanel
      * @see DocumentListener
      */
     public TextFieldCell(JTextField FORMULA) {
@@ -58,7 +60,7 @@ public class TextFieldCell extends JTextField {
     /**
      * Set the text of JTextField.
      *
-     * @param FORMULA       {@link nexCell.view.customElement.panel.InfoPanel#FORMULA}
+     * @param FORMULA       {@link InfoPanel#FORMULA}
      * @param documentEvent contains the data entered by the user
      */
     private void setText(JTextField FORMULA, DocumentEvent documentEvent) {

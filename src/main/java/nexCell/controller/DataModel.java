@@ -27,7 +27,7 @@ import java.util.Vector;
  *
  * @author Federico Pierantoni
  */
-public class MyDataModel extends DefaultTableModel {
+public class DataModel extends DefaultTableModel {
 
     /**
      * Vector that contains identifiers of the row
@@ -45,11 +45,11 @@ public class MyDataModel extends DefaultTableModel {
     private final SheetStructure sheetStructure;
 
     /**
-     * Initialize and populate table {@link MyDataModel#populateTable()}.
+     * Initialize and populate table {@link DataModel#populateTable()}.
      *
-     * @param sheetStructure {@link MyDataModel#sheetStructure}
+     * @param sheetStructure {@link DataModel#sheetStructure}
      */
-    public MyDataModel(SheetStructure sheetStructure) {
+    public DataModel(SheetStructure sheetStructure) {
         this.rowIdentifiers = new Vector<>();
         this.columnIdentifiers = new Vector<>();
         this.sheetStructure = sheetStructure;
@@ -57,7 +57,7 @@ public class MyDataModel extends DefaultTableModel {
     }
 
     /**
-     * Returns the Vector of the row identifier: {@link MyDataModel#rowIdentifiers}.
+     * Returns the Vector of the row identifier: {@link DataModel#rowIdentifiers}.
      *
      * @return the Vector of the row identifier
      */
@@ -67,7 +67,7 @@ public class MyDataModel extends DefaultTableModel {
 
     /**
      * Returns data structure object.
-     * {@link MyDataModel#sheetStructure}
+     * {@link DataModel#sheetStructure}
      *
      * @return data structure object
      */
@@ -77,8 +77,8 @@ public class MyDataModel extends DefaultTableModel {
 
     /**
      * Populate JTable with generic cell and fill vector identifiers.
-     * {@link MyDataModel#rowIdentifiers}
-     * {@link MyDataModel#columnIdentifiers}
+     * {@link DataModel#rowIdentifiers}
+     * {@link DataModel#columnIdentifiers}
      */
     private void populateTable() {
         // populate row identifier with number from 0 to 1000
@@ -184,9 +184,9 @@ public class MyDataModel extends DefaultTableModel {
     }
 
     /**
-     * Check if the value taken in input is null and the value saved in the matrix{@link MyDataModel#sheetStructure}
-     * is different from null, in this case call {@link MyDataModel#setValueAt(Object, int, int, boolean)}
-     * with empty value otherwise call {@link MyDataModel#setValueAt(Object, int, int, boolean)} with the
+     * Check if the value taken in input is null and the value saved in the matrix{@link DataModel#sheetStructure}
+     * is different from null, in this case call {@link DataModel#setValueAt(Object, int, int, boolean)}
+     * with empty value otherwise call {@link DataModel#setValueAt(Object, int, int, boolean)} with the
      * value taken in input.
      *
      * @param value  take in input from the user
@@ -196,9 +196,9 @@ public class MyDataModel extends DefaultTableModel {
     @Override
     public void setValueAt(Object value, int row, int column) {
         // check if the value in the JTable is different from the input parameter
-        if (value == null && sheetStructure.getMatrix().get(row).get(column).getValue() != null)
-            this.setValueAt("", row, column, true);
-        else
+        if (value != null)
             this.setValueAt(value, row, column, true);
+        else if (sheetStructure.getMatrix().get(row).get(column).getValue() != null)
+            this.setValueAt("", row, column, true);
     }
 }
