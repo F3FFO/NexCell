@@ -16,10 +16,10 @@
 
 package nexCell.view.menu;
 
-import nexCell.controller.MyDataModel;
+import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
 import nexCell.view.Gui;
-import nexCell.view.customElement.panel.SheetsView;
+import nexCell.view.panel.SheetsView;
 
 import javax.swing.*;
 
@@ -39,10 +39,11 @@ public class MenuBar extends JMenuBar {
      * @param SHEETS         panel to modify
      * @see Gui
      * @see SheetStructure
-     * @see MyDataModel
+     * @see DataModel
      * @see SheetsView
      */
-    public MenuBar(Gui frame, SheetStructure sheetStructure, MyDataModel model, SheetsView SHEETS) {
+    public MenuBar(Gui frame, SheetStructure sheetStructure, DataModel model, SheetsView SHEETS) {
         this.add(new MenuFile(frame, sheetStructure, model, SHEETS));
+        this.add(new MenuHelp());
     }
 }
