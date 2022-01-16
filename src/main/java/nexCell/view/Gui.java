@@ -17,6 +17,7 @@
 package nexCell.view;
 
 import net.miginfocom.swing.MigLayout;
+import nexCell.Main;
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
 import nexCell.controller.io.Autosave;
@@ -29,6 +30,10 @@ import nexCell.view.rowHeader.RowHeader;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 /**
  * This class contain the main frame.
@@ -65,9 +70,9 @@ public class Gui extends JFrame {
     /**
      * Construct and initialize the frame.
      *
-     * @param file temporary save file
+     * @param tempFile temporary save file
      */
-    public Gui(File file) {
+    public Gui(File tempFile) {
         super("NexCell");
         this.setLayout(new MigLayout("ins 0", "[grow,fill]", "[grow,fill]"));
         this.setPreferredSize(new Dimension(900, 600));
@@ -90,8 +95,11 @@ public class Gui extends JFrame {
         SCROLL_PANE.getViewport().add(SHEETS_PANEL);
         this.add(SCROLL_PANE, "push, grow");
         // auto-save
-        toSave = new Autosave(saveTemp(file));
+        toSave = new Autosave(saveTemp(tempFile, ".unsaved-nexcell.tmp"));
 
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -146,13 +154,26 @@ public class Gui extends JFrame {
     /**
      * Start the thread to save the file.
      *
-     * @param file to save
+     * @param path where to save file
+     * @param name of the file to save
      * @return the runnable which contain the thread
      * @see SaveFile
      */
-    public Runnable saveTemp(File file) {
-        Runnable runnable = new SaveFile(file, this.sheetStructure.getMatrix());
-        new Thread(runnable).start();
+    public Runnable saveTemp(File path, String name) {
+        Runnable runnable = new SaveFile(new File(path.getPath(), name), this.sheetStructure.getMatrix());
+        Thread thread = new Thread(runnable);
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (Files.exists(Paths.get(Main.PREFERENCES_FILE.toURI())))
+                Files.write(Paths.get(Main.PREFERENCES_FILE.toURI()), (path.getPath() + ":" + name + "\n").getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return runnable;
     }
 }

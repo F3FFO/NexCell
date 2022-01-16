@@ -19,10 +19,14 @@ package nexCell;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.util.SystemInfo;
+import nexCell.view.DialogStartUp;
 import nexCell.view.Gui;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * This class is the main class.
@@ -30,6 +34,9 @@ import java.io.File;
  * @author Federico Pierantoni
  */
 public class Main {
+
+    private static final File HERE = new File("");
+    public static final File PREFERENCES_FILE = new File(HERE.getAbsolutePath(), "preference.json");
 
     public static void main(String[] args) {
         if (SystemInfo.isMacOS) {
@@ -55,15 +62,27 @@ public class Main {
             FlatLightLaf.setup();
 
             // file temp
-            File file = new File(System.getProperty("java.io.tmpdir"), ".unsaved-nexcell.tmp");
+            File tempFilePath = new File(System.getProperty("java.io.tmpdir"));
 
             // create frame
-            Gui frame = new Gui(file);
+            Gui frame = new Gui(tempFilePath);
+            // create dialog on start
+            if (Files.exists(Paths.get(Main.PREFERENCES_FILE.toURI()))) {
+                DialogStartUp dialogStartUp = new DialogStartUp(frame);
 
-            //ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-            //Runnable save = frame.saveTemp(file);
-            //executor.scheduleWithFixedDelay(save, 10, 15, TimeUnit.SECONDS);
-
+                // show dialog startup
+                dialogStartUp.setModal(true);
+                dialogStartUp.pack();
+                dialogStartUp.setLocationRelativeTo(null);
+                dialogStartUp.setResizable(false);
+                dialogStartUp.setVisible(true);
+            } else {
+                try {
+                    Files.createFile(Paths.get(PREFERENCES_FILE.toURI()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             // show frame
             frame.pack();
             frame.setLocationRelativeTo(null);

@@ -29,7 +29,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.Locale;
 
 /**
@@ -151,8 +150,7 @@ public class MenuFile extends JMenu {
                     e.printStackTrace();
                 } finally {
                     String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    File file = new File(fileChooser.getCurrentDirectory(), name);
-                    new Autosave(frame.saveTemp(file));
+                    new Autosave(frame.saveTemp(fileChooser.getCurrentDirectory(), name));
                 }
             }
         }
@@ -190,8 +188,7 @@ public class MenuFile extends JMenu {
                     e.printStackTrace();
                 } finally {
                     String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    File file = new File(fileChooser.getCurrentDirectory(), name);
-                    new Autosave(frame.saveTemp(file));
+                    new Autosave(frame.saveTemp(fileChooser.getCurrentDirectory(), name));
                 }
             }
         }
