@@ -23,9 +23,6 @@ import nexCell.view.Gui;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class is the main class.
@@ -57,15 +54,15 @@ public class Main {
             FlatLaf.registerCustomDefaultsSource("nexCell");
             FlatLightLaf.setup();
 
-            // create frame
-            Gui frame = new Gui();
+            // file temp
+            File file = new File(System.getProperty("java.io.tmpdir"), ".unsaved-nexcell.tmp");
 
-            // run autosave
-            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-            String dir = System.getProperty("java.io.tmpdir");
-            File file = new File(dir, ".unsaved-nexcell.tmp");
-            Runnable save = frame.saveTemp(file);
-            executor.scheduleWithFixedDelay(save, 10, 15, TimeUnit.SECONDS);
+            // create frame
+            Gui frame = new Gui(file);
+
+            //ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+            //Runnable save = frame.saveTemp(file);
+            //executor.scheduleWithFixedDelay(save, 10, 15, TimeUnit.SECONDS);
 
             // show frame
             frame.pack();

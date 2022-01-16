@@ -18,6 +18,7 @@ package nexCell.view.menu;
 
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
+import nexCell.controller.io.Autosave;
 import nexCell.controller.io.OpenFile;
 import nexCell.controller.io.SaveFile;
 import nexCell.view.Gui;
@@ -28,6 +29,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -40,19 +42,19 @@ public class MenuFile extends JMenu {
     /**
      * Item 'Nuovo'
      */
-    private JMenuItem newMenuItem = new JMenuItem();
+    private final JMenuItem newMenuItem = new JMenuItem();
     /**
      * Item 'Apri'
      */
-    private JMenuItem openMenuItem = new JMenuItem();
+    private final JMenuItem openMenuItem = new JMenuItem();
     /**
      * Item 'Salva con nome'
      */
-    private JMenuItem saveAsMenuItem = new JMenuItem();
+    private final JMenuItem saveAsMenuItem = new JMenuItem();
     /**
      * Item 'Esci'
      */
-    private JMenuItem exitMenuItem = new JMenuItem();
+    private final JMenuItem exitMenuItem = new JMenuItem();
 
     /**
      * Construct the menu.
@@ -76,12 +78,12 @@ public class MenuFile extends JMenu {
         //---- openMenuItem ----
         openMenuItem.setText("Apri...");
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        openMenuItem.addActionListener(new OpenActionPerformed(this, model));
+        openMenuItem.addActionListener(new OpenActionPerformed(this, frame, model));
         this.add(openMenuItem);
         //---- saveAsMenuItem ----
         saveAsMenuItem.setText("Salva");
         saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        saveAsMenuItem.addActionListener(new SaveAsActionPerformed(this, sheetStructure));
+        saveAsMenuItem.addActionListener(new SaveAsActionPerformed(this, frame, sheetStructure));
         this.add(saveAsMenuItem);
         this.addSeparator();
         //---- exitMenuItem ----
@@ -127,10 +129,12 @@ public class MenuFile extends JMenu {
     private static class OpenActionPerformed implements ActionListener {
 
         private final JMenu menu;
+        private final Gui frame;
         private final DataModel model;
 
-        public OpenActionPerformed(JMenu menu, DataModel model) {
+        public OpenActionPerformed(JMenu menu, Gui frame, DataModel model) {
             this.menu = menu;
+            this.frame = frame;
             this.model = model;
         }
 
@@ -143,8 +147,12 @@ public class MenuFile extends JMenu {
             fileChooser.setAcceptAllFileFilterUsed(false);
             int userSelection = fileChooser.showOpenDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
+                frame.getToSave().kill();
                 Runnable runnable = new OpenFile(fileChooser.getSelectedFile(), this.model);
                 new Thread(runnable).start();
+                String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
+                File file = new File(fileChooser.getCurrentDirectory(), name);
+                new Autosave(frame.saveTemp(file));
             }
         }
     }
@@ -158,10 +166,12 @@ public class MenuFile extends JMenu {
     private static class SaveAsActionPerformed implements ActionListener {
 
         private final JMenu menu;
+        private final Gui frame;
         private final SheetStructure sheetStructure;
 
-        public SaveAsActionPerformed(JMenu menu, SheetStructure sheetStructure) {
+        public SaveAsActionPerformed(JMenu menu, Gui frame, SheetStructure sheetStructure) {
             this.menu = menu;
+            this.frame = frame;
             this.sheetStructure = sheetStructure;
         }
 
@@ -170,12 +180,14 @@ public class MenuFile extends JMenu {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Salva");
             fileChooser.setLocale(Locale.getDefault());
-
             int userSelection = fileChooser.showSaveDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
-                System.out.println(fileChooser.getSelectedFile().getName());
+                frame.getToSave().kill();
                 Runnable runnable = new SaveFile(fileChooser.getSelectedFile(), this.sheetStructure.getMatrix());
                 new Thread(runnable).start();
+                String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
+                File file = new File(fileChooser.getCurrentDirectory(), name);
+                new Autosave(frame.saveTemp(file));
             }
         }
     }

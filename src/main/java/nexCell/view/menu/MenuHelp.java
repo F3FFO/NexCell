@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * This class contains 'help' menu item.
@@ -35,7 +36,7 @@ public class MenuHelp extends JMenu {
     /**
      * Item 'Informazioni sulla licenza'
      */
-    private JMenuItem licenseItem = new JMenuItem();
+    private final JMenuItem licenseItem = new JMenuItem();
 
     /**
      * Construct the menu.
@@ -63,7 +64,7 @@ public class MenuHelp extends JMenu {
             dialog.setLocationRelativeTo(null);
             dialog.setResizable(false);
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("nexCell/license.txt").getFile());
+            File file = new File(Objects.requireNonNull(classLoader.getResource("nexCell/license.txt")).getFile());
             try {
                 BufferedReader br = new BufferedReader(new FileReader(file.getAbsolutePath()));
                 String line = "";

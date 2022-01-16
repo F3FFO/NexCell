@@ -19,6 +19,7 @@ package nexCell.view;
 import net.miginfocom.swing.MigLayout;
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
+import nexCell.controller.io.Autosave;
 import nexCell.controller.io.SaveFile;
 import nexCell.view.menu.MenuBar;
 import nexCell.view.panel.InfoPanel;
@@ -51,9 +52,18 @@ public class Gui extends JFrame {
     private final SheetsView SHEETS;
 
     /**
-     * Construct and initialize the frame.
+     * Object of {@link Autosave}
+     *
+     * @see Autosave
      */
-    public Gui() {
+    private Autosave toSave;
+
+    /**
+     * Construct and initialize the frame.
+     *
+     * @param file temporary save file
+     */
+    public Gui(File file) {
         super("NexCell");
         this.setLayout(new MigLayout("ins 0", "[grow,fill]", "[grow,fill]"));
         this.setPreferredSize(new Dimension(900, 600));
@@ -76,6 +86,9 @@ public class Gui extends JFrame {
         SCROLL_PANE.getViewport().add(SHEETS);
         this.add(SCROLL_PANE, "push, grow");
 
+        // auto-save
+        toSave = new Autosave(saveTemp(file));
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -87,6 +100,16 @@ public class Gui extends JFrame {
      */
     public SheetsView getSHEETS() {
         return SHEETS;
+    }
+
+    /**
+     * Returns the object of AutoSave class.
+     *
+     * @return the object of AutoSave class
+     * @see Autosave
+     */
+    public Autosave getToSave() {
+        return toSave;
     }
 
     /**
