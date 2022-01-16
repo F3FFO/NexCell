@@ -20,7 +20,7 @@ import net.miginfocom.swing.MigLayout;
 import nexCell.Main;
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
-import nexCell.controller.io.Autosave;
+import nexCell.controller.io.AutoSave;
 import nexCell.controller.io.SaveFile;
 import nexCell.view.menu.MenuBar;
 import nexCell.view.panel.InfoPanel;
@@ -49,11 +49,11 @@ public class Gui extends JFrame {
      */
     private final InfoPanel INFO;
     /**
-     * Object of {@link Autosave}
+     * Object of {@link AutoSave}
      *
-     * @see Autosave
+     * @see AutoSave
      */
-    private Autosave toSave;
+    private AutoSave toSave;
     /**
      * Object of the data structure
      *
@@ -95,7 +95,7 @@ public class Gui extends JFrame {
         SCROLL_PANE.getViewport().add(SHEETS_PANEL);
         this.add(SCROLL_PANE, "push, grow");
         // auto-save
-        toSave = new Autosave(saveTemp(tempFile, ".unsaved-nexcell.tmp"));
+        toSave = new AutoSave(saveTemp(tempFile, ".unsaved-nexcell.tmp"));
 
         this.pack();
         this.setLocationRelativeTo(null);
@@ -145,9 +145,9 @@ public class Gui extends JFrame {
      * Returns the object of AutoSave class.
      *
      * @return the object of AutoSave class
-     * @see Autosave
+     * @see AutoSave
      */
-    public Autosave getToSave() {
+    public AutoSave getToSave() {
         return toSave;
     }
 

@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Federico Pierantoni
  */
-public class Autosave {
+public class AutoSave {
 
     /**
      * Object of {@link ScheduledExecutorService}
@@ -33,11 +33,11 @@ public class Autosave {
     private ScheduledExecutorService executor;
 
     /**
-     * Construct the {@link Autosave#executor} to run a new thread.
+     * Construct the {@link AutoSave#executor} to run a new thread.
      *
      * @param runnable the task to execute
      */
-    public Autosave(Runnable runnable) {
+    public AutoSave(Runnable runnable) {
         executor = Executors.newScheduledThreadPool(1);
         executor.scheduleWithFixedDelay(runnable, 10, 15, TimeUnit.SECONDS);
     }

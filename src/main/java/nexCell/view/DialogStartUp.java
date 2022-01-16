@@ -17,7 +17,7 @@
 package nexCell.view;
 
 import nexCell.Main;
-import nexCell.controller.io.Autosave;
+import nexCell.controller.io.AutoSave;
 import nexCell.controller.io.OpenFile;
 
 import javax.swing.*;
@@ -97,7 +97,7 @@ public class DialogStartUp extends JDialog {
                     String name = "." + listModel.get(index) + ".tmp";
                     try {
                         Files.deleteIfExists(Paths.get(Main.PREFERENCES_FILE.toURI()));
-                        new Autosave(frame.saveTemp(files.get(index), name));
+                        new AutoSave(frame.saveTemp(files.get(index), name));
                         Files.createFile(Paths.get(Main.PREFERENCES_FILE.toURI()));
                     } catch (IOException e) {
                         e.printStackTrace();

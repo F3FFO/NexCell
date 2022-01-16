@@ -18,7 +18,7 @@ package nexCell.view.menu;
 
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
-import nexCell.controller.io.Autosave;
+import nexCell.controller.io.AutoSave;
 import nexCell.controller.io.OpenFile;
 import nexCell.controller.io.SaveFile;
 import nexCell.view.Gui;
@@ -149,8 +149,8 @@ public class MenuFile extends JMenu {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    new Autosave(frame.saveTemp(fileChooser.getCurrentDirectory(), name));
+                    //String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
+                    new AutoSave(frame.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName()));
                 }
             }
         }
@@ -187,8 +187,8 @@ public class MenuFile extends JMenu {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    new Autosave(frame.saveTemp(fileChooser.getCurrentDirectory(), name));
+                    //String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
+                    new AutoSave(frame.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName()));
                 }
             }
         }
