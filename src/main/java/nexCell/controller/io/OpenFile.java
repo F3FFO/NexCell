@@ -27,7 +27,7 @@ import java.io.ObjectInputStream;
 import java.util.List;
 
 /**
- * This class contains the logic for opening files
+ * This class contains the logic for opening files.
  *
  * @author Federico Pierantoni
  */
