@@ -35,7 +35,7 @@ public class SheetsView extends JPanel {
      *
      * @see MyJTable
      */
-    private final MyJTable SHEETS;
+    private final MyJTable sheetsTable;
     /**
      * Object of the JTable
      *
@@ -57,29 +57,20 @@ public class SheetsView extends JPanel {
     public SheetsView(SheetStructure sheetStructure, DataModel model, JTextField CELL_SELECTED, JTextField FORMULA) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.sheetStructure = sheetStructure;
-        this.SHEETS = new MyJTable(CELL_SELECTED, FORMULA);
+        this.sheetsTable = new MyJTable(CELL_SELECTED, FORMULA);
 
-        SHEETS.setModel(model);
-        SHEETS.changeSelection(0, 0, false, false);
-        SHEETS.setDefaultEditor(Object.class, new MyCellEditor(sheetStructure, FORMULA));
-        this.add(SHEETS);
+        sheetsTable.setModel(model);
+        sheetsTable.changeSelection(0, 0, false, false);
+        sheetsTable.setDefaultEditor(Object.class, new MyCellEditor(sheetStructure, FORMULA));
+        this.add(sheetsTable);
     }
 
     /**
-     * Return the {@link SheetsView#SHEETS} object.
+     * Returns the {@link SheetsView#sheetsTable} object.
      *
      * @return the JTable object
      */
-    public MyJTable getSHEETS() {
-        return this.SHEETS;
-    }
-
-    /**
-     * Return the data structure: {@link SheetsView#sheetStructure}.
-     *
-     * @return the data structure
-     */
-    public SheetStructure getSheetStructure() {
-        return sheetStructure;
+    public MyJTable getSheetsTable() {
+        return this.sheetsTable;
     }
 }

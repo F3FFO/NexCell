@@ -73,17 +73,17 @@ public class MenuFile extends JMenu {
         //---- newMenuItem ----
         newMenuItem.setText("Nuovo");
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        newMenuItem.addActionListener(new NewActionPerformed(sheetStructure, model, SHEETS));
+        newMenuItem.addActionListener(new NewActionPerformed(frame, SHEETS));
         this.add(newMenuItem);
         //---- openMenuItem ----
         openMenuItem.setText("Apri...");
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        openMenuItem.addActionListener(new OpenActionPerformed(this, frame, model));
+        openMenuItem.addActionListener(new OpenActionPerformed(this, frame));
         this.add(openMenuItem);
         //---- saveAsMenuItem ----
         saveAsMenuItem.setText("Salva");
         saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        saveAsMenuItem.addActionListener(new SaveAsActionPerformed(this, frame, sheetStructure));
+        saveAsMenuItem.addActionListener(new SaveAsActionPerformed(this, frame));
         this.add(saveAsMenuItem);
         this.addSeparator();
         //---- exitMenuItem ----
@@ -101,22 +101,19 @@ public class MenuFile extends JMenu {
      */
     private static class NewActionPerformed implements ActionListener {
 
-        private SheetStructure sheetStructure;
-        private DataModel model;
+        private final Gui frame;
         private final SheetsView SHEETS;
 
-        public NewActionPerformed(SheetStructure sheetStructure, DataModel model, SheetsView SHEETS) {
-            this.sheetStructure = sheetStructure;
-            this.model = model;
+        public NewActionPerformed(Gui frame, SheetsView SHEETS) {
+            this.frame = frame;
             this.SHEETS = SHEETS;
         }
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            this.sheetStructure = new SheetStructure();
-            this.model.setRowCount(0);
-            this.model = new DataModel(sheetStructure);
-            this.SHEETS.getSHEETS().setModel(model);
+            this.frame.setSheetStructure(new SheetStructure());
+            this.frame.setModel(new DataModel(this.frame.getSheetStructure()));
+            this.SHEETS.getSheetsTable().setModel(this.frame.getModel());
         }
     }
 
@@ -130,12 +127,10 @@ public class MenuFile extends JMenu {
 
         private final JMenu menu;
         private final Gui frame;
-        private final DataModel model;
 
-        public OpenActionPerformed(JMenu menu, Gui frame, DataModel model) {
+        public OpenActionPerformed(JMenu menu, Gui frame) {
             this.menu = menu;
             this.frame = frame;
-            this.model = model;
         }
 
         @Override
@@ -148,11 +143,17 @@ public class MenuFile extends JMenu {
             int userSelection = fileChooser.showOpenDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 frame.getToSave().kill();
-                Runnable runnable = new OpenFile(fileChooser.getSelectedFile(), this.model);
-                new Thread(runnable).start();
-                String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                File file = new File(fileChooser.getCurrentDirectory(), name);
-                new Autosave(frame.saveTemp(file));
+                Thread thread = new Thread(new OpenFile(fileChooser.getSelectedFile(), this.frame.getModel()));
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
+                    File file = new File(fileChooser.getCurrentDirectory(), name);
+                    new Autosave(frame.saveTemp(file));
+                }
             }
         }
     }
@@ -167,12 +168,10 @@ public class MenuFile extends JMenu {
 
         private final JMenu menu;
         private final Gui frame;
-        private final SheetStructure sheetStructure;
 
-        public SaveAsActionPerformed(JMenu menu, Gui frame, SheetStructure sheetStructure) {
+        public SaveAsActionPerformed(JMenu menu, Gui frame) {
             this.menu = menu;
             this.frame = frame;
-            this.sheetStructure = sheetStructure;
         }
 
         @Override
@@ -183,11 +182,17 @@ public class MenuFile extends JMenu {
             int userSelection = fileChooser.showSaveDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 frame.getToSave().kill();
-                Runnable runnable = new SaveFile(fileChooser.getSelectedFile(), this.sheetStructure.getMatrix());
-                new Thread(runnable).start();
-                String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                File file = new File(fileChooser.getCurrentDirectory(), name);
-                new Autosave(frame.saveTemp(file));
+                Thread thread = new Thread(new SaveFile(fileChooser.getSelectedFile(), this.frame.getSheetStructure().getMatrix()));
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
+                    File file = new File(fileChooser.getCurrentDirectory(), name);
+                    new Autosave(frame.saveTemp(file));
+                }
             }
         }
     }

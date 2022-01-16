@@ -37,7 +37,6 @@ import java.io.File;
  */
 public class Gui extends JFrame {
 
-    private static final JScrollPane SCROLL_PANE = new JScrollPane();
     /**
      * Object of the top panel
      *
@@ -45,18 +44,23 @@ public class Gui extends JFrame {
      */
     private final InfoPanel INFO;
     /**
-     * Object of the JTable panel
-     *
-     * @see SheetsView
-     */
-    private final SheetsView SHEETS;
-
-    /**
      * Object of {@link Autosave}
      *
      * @see Autosave
      */
     private Autosave toSave;
+    /**
+     * Object of the data structure
+     *
+     * @see SheetStructure
+     */
+    private SheetStructure sheetStructure;
+    /**
+     * Object of the data model
+     *
+     * @see DataModel
+     */
+    private DataModel model;
 
     /**
      * Construct and initialize the frame.
@@ -70,22 +74,21 @@ public class Gui extends JFrame {
         this.setMinimumSize(new Dimension(600, 400));
 
         // initialize the main object
-        SheetStructure sheetStructure = new SheetStructure();
-        DataModel model = new DataModel(sheetStructure);
+        setSheetStructure(new SheetStructure());
+        setModel(new DataModel(sheetStructure));
         this.INFO = new InfoPanel();
-        this.SHEETS = new SheetsView(sheetStructure, model, this.INFO.getCELL_SELECTED(), this.INFO.getFORMULA());
-
-        this.setJMenuBar(new MenuBar(this, sheetStructure, model, this.SHEETS));
+        SheetsView SHEETS_PANEL = new SheetsView(sheetStructure, model, this.INFO.getCELL_SELECTED(), this.INFO.getFORMULA());
+        this.setJMenuBar(new MenuBar(this, sheetStructure, model, SHEETS_PANEL));
         this.add(INFO, "wrap, pushx, growx");
 
-        // initialize the JScrollPane
+        // JScrollPane
+        JScrollPane SCROLL_PANE = new JScrollPane();
         SCROLL_PANE.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         SCROLL_PANE.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        SCROLL_PANE.setRowHeaderView(new RowHeader(SHEETS.getSHEETS()));
-        SCROLL_PANE.setColumnHeaderView(SHEETS.getSHEETS().getTableHeader());
-        SCROLL_PANE.getViewport().add(SHEETS);
+        SCROLL_PANE.setRowHeaderView(new RowHeader(SHEETS_PANEL.getSheetsTable()));
+        SCROLL_PANE.setColumnHeaderView(SHEETS_PANEL.getSheetsTable().getTableHeader());
+        SCROLL_PANE.getViewport().add(SHEETS_PANEL);
         this.add(SCROLL_PANE, "push, grow");
-
         // auto-save
         toSave = new Autosave(saveTemp(file));
 
@@ -93,13 +96,41 @@ public class Gui extends JFrame {
     }
 
     /**
-     * Return the object of the panel that contain the JTable.
+     * Returns the data structure: {@link Gui#sheetStructure}.
      *
-     * @return the panel that contain the JTable
-     * @see SheetsView
+     * @return the data structure
+     * @see SheetStructure
      */
-    public SheetsView getSHEETS() {
-        return SHEETS;
+    public SheetStructure getSheetStructure() {
+        return sheetStructure;
+    }
+
+    /**
+     * Sets data structure of the JTable.
+     *
+     * @param sheetStructure data structure of the JTable
+     */
+    public void setSheetStructure(SheetStructure sheetStructure) {
+        this.sheetStructure = sheetStructure;
+    }
+
+    /**
+     * Returns the data model: {@link Gui#model}.
+     *
+     * @return the data structure
+     * @see DataModel
+     */
+    public DataModel getModel() {
+        return model;
+    }
+
+    /**
+     * Sets the model of the JTable.
+     *
+     * @param model to set
+     */
+    public void setModel(DataModel model) {
+        this.model = model;
     }
 
     /**
@@ -120,7 +151,7 @@ public class Gui extends JFrame {
      * @see SaveFile
      */
     public Runnable saveTemp(File file) {
-        Runnable runnable = new SaveFile(file, this.getSHEETS().getSheetStructure().getMatrix());
+        Runnable runnable = new SaveFile(file, this.sheetStructure.getMatrix());
         new Thread(runnable).start();
         return runnable;
     }
