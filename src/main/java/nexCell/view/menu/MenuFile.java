@@ -16,6 +16,7 @@
 
 package nexCell.view.menu;
 
+import nexCell.Main;
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
 import nexCell.controller.io.AutoSave;
@@ -141,6 +142,7 @@ public class MenuFile extends JMenu {
             fileChooser.setAcceptAllFileFilterUsed(false);
             int userSelection = fileChooser.showOpenDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
+                //todo fix
                 frame.getToSave().kill();
                 Thread thread = new Thread(new OpenFile(fileChooser.getSelectedFile(), this.frame.getModel()));
                 thread.start();
@@ -150,7 +152,7 @@ public class MenuFile extends JMenu {
                     e.printStackTrace();
                 } finally {
                     //String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    new AutoSave(frame.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName()));
+                    new AutoSave(Main.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix()));
                 }
             }
         }
@@ -188,7 +190,7 @@ public class MenuFile extends JMenu {
                     e.printStackTrace();
                 } finally {
                     //String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    new AutoSave(frame.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName()));
+                    new AutoSave(Main.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix()));
                 }
             }
         }

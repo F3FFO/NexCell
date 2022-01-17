@@ -19,6 +19,9 @@ package nexCell;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.util.SystemInfo;
+import nexCell.cell.Cell;
+import nexCell.controller.io.AutoSave;
+import nexCell.controller.io.SaveFile;
 import nexCell.view.DialogStartUp;
 import nexCell.view.Gui;
 
@@ -27,6 +30,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * This class is the main class.
@@ -61,15 +68,12 @@ public class Main {
             FlatLaf.registerCustomDefaultsSource("nexCell");
             FlatLightLaf.setup();
 
-            // file temp
-            File tempFilePath = new File(System.getProperty("java.io.tmpdir"));
-
             // create frame
-            Gui frame = new Gui(tempFilePath);
+            Gui frame = new Gui();
+
             // create dialog on start
             if (Files.exists(Paths.get(Main.PREFERENCES_FILE.toURI()))) {
                 DialogStartUp dialogStartUp = new DialogStartUp(frame);
-
                 // show dialog startup
                 dialogStartUp.setModal(true);
                 dialogStartUp.pack();
@@ -82,11 +86,39 @@ public class Main {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                frame.setToSave(new AutoSave(Main.saveTemp(new File(System.getProperty("java.io.tmpdir")), ".unsaved-nexcell.tmp", frame.getSheetStructure().getMatrix())));
             }
             // show frame
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
+    }
+
+    /**
+     * Start the thread to save the file.
+     *
+     * @param path where to save file
+     * @param name of the file to save
+     * @return the runnable which contain the thread
+     * @see SaveFile
+     */
+    public static Runnable saveTemp(File path, String name, List<List<Cell>> matrix) {
+        Runnable runnable = new SaveFile(new File(path.getPath(), name), matrix);
+        Thread thread = new Thread(runnable);
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
+            String date = dateFormat.format(Files.getLastModifiedTime(Paths.get(path.toURI())).toMillis());
+            Files.write(Paths.get(Main.PREFERENCES_FILE.toURI()), (path.getPath() + ";" + name + ";" + date + "\n").getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return runnable;
     }
 }

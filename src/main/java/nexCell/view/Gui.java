@@ -17,11 +17,9 @@
 package nexCell.view;
 
 import net.miginfocom.swing.MigLayout;
-import nexCell.Main;
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
 import nexCell.controller.io.AutoSave;
-import nexCell.controller.io.SaveFile;
 import nexCell.view.menu.MenuBar;
 import nexCell.view.panel.InfoPanel;
 import nexCell.view.panel.SheetsView;
@@ -29,11 +27,6 @@ import nexCell.view.rowHeader.RowHeader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 /**
  * This class contain the main frame.
@@ -69,10 +62,8 @@ public class Gui extends JFrame {
 
     /**
      * Construct and initialize the frame.
-     *
-     * @param tempFile temporary save file
      */
-    public Gui(File tempFile) {
+    public Gui() {
         super("NexCell");
         this.setLayout(new MigLayout("ins 0", "[grow,fill]", "[grow,fill]"));
         this.setPreferredSize(new Dimension(900, 600));
@@ -95,7 +86,7 @@ public class Gui extends JFrame {
         SCROLL_PANE.getViewport().add(SHEETS_PANEL);
         this.add(SCROLL_PANE, "push, grow");
         // auto-save
-        toSave = new AutoSave(saveTemp(tempFile, ".unsaved-nexcell.tmp"));
+        //toSave = new AutoSave(saveTemp(new File(System.getProperty("java.io.tmpdir")), ".unsaved-nexcell.tmp"));
 
         this.pack();
         this.setLocationRelativeTo(null);
@@ -151,29 +142,7 @@ public class Gui extends JFrame {
         return toSave;
     }
 
-    /**
-     * Start the thread to save the file.
-     *
-     * @param path where to save file
-     * @param name of the file to save
-     * @return the runnable which contain the thread
-     * @see SaveFile
-     */
-    public Runnable saveTemp(File path, String name) {
-        Runnable runnable = new SaveFile(new File(path.getPath(), name), this.sheetStructure.getMatrix());
-        Thread thread = new Thread(runnable);
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (Files.exists(Paths.get(Main.PREFERENCES_FILE.toURI())))
-                Files.write(Paths.get(Main.PREFERENCES_FILE.toURI()), (path.getPath() + ":" + name + "\n").getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return runnable;
+    public void setToSave(AutoSave toSave) {
+        this.toSave = toSave;
     }
 }
