@@ -135,7 +135,7 @@ public class MenuFile extends JMenu {
             fileChooser.setLocale(Locale.getDefault());
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.setAcceptAllFileFilterUsed(false);
-            int userSelection = fileChooser.showOpenDialog(menu);
+            int userSelection = fileChooser.showOpenDialog(null);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 Thread thread = new Thread(new OpenFile(fileChooser.getSelectedFile(), frame.getModel()));
                 thread.start();
@@ -171,16 +171,32 @@ public class MenuFile extends JMenu {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Salva");
             fileChooser.setLocale(Locale.getDefault());
-            int userSelection = fileChooser.showSaveDialog(this.menu);
+            int userSelection = fileChooser.showSaveDialog(null);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
-                Thread thread = new Thread(new SaveFile(fileChooser.getSelectedFile(), this.frame.getSheetStructure().getMatrix()));
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    Main.saveFile(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix());
+                if (fileChooser.getSelectedFile().exists()) {
+                    String message = "Esiste già un file chiamato \"" + fileChooser.getSelectedFile().getName() + "\". Vuoi sostituirlo?";
+                    int result = JOptionPane.showConfirmDialog(null, message, "Salva", JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.YES_OPTION) {
+                        Thread thread = new Thread(new SaveFile(fileChooser.getSelectedFile(), this.frame.getSheetStructure().getMatrix()));
+                        thread.start();
+                        try {
+                            thread.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } finally {
+                            Main.saveFile(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix());
+                        }
+                    }
+                } else {
+                    Thread thread = new Thread(new SaveFile(fileChooser.getSelectedFile(), this.frame.getSheetStructure().getMatrix()));
+                    thread.start();
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        Main.saveFile(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix());
+                    }
                 }
             }
         }
