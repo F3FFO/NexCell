@@ -47,6 +47,9 @@ public class InfoPanel extends JPanel {
         CELL_SELECTED.setEditable(false);
         CELL_SELECTED.setMinimumSize(new Dimension(100, CELL_SELECTED.getPreferredSize().height));
 
+        FORMULA.setEditable(false);
+        FORMULA.setBackground(Color.WHITE);
+
         this.add(CELL_SELECTED);
         this.add(LABEL1);
         this.add(FORMULA, "pushx, growx");

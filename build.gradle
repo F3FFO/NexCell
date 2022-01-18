@@ -14,7 +14,6 @@ configurations {
 }
 
 dependencies {
-    // implementation 'com.formdev:flatlaf:1.6.5'
     implementation 'com.formdev:flatlaf:2.0-rc1'
     implementation 'com.miglayout:miglayout-swing:11.0'
 
