@@ -19,7 +19,6 @@ package nexCell.view;
 import net.miginfocom.swing.MigLayout;
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
-import nexCell.controller.io.AutoSave;
 import nexCell.view.menu.MenuBar;
 import nexCell.view.panel.InfoPanel;
 import nexCell.view.panel.SheetsView;
@@ -41,12 +40,6 @@ public class Gui extends JFrame {
      * @see InfoPanel
      */
     private final InfoPanel INFO;
-    /**
-     * Object of {@link AutoSave}
-     *
-     * @see AutoSave
-     */
-    private AutoSave toSave;
     /**
      * Object of the data structure
      *
@@ -74,7 +67,7 @@ public class Gui extends JFrame {
         setModel(new DataModel(sheetStructure));
         this.INFO = new InfoPanel();
         SheetsView SHEETS_PANEL = new SheetsView(sheetStructure, model, this.INFO.getCELL_SELECTED(), this.INFO.getFORMULA());
-        this.setJMenuBar(new MenuBar(this, sheetStructure, model, SHEETS_PANEL));
+        this.setJMenuBar(new MenuBar(this, SHEETS_PANEL));
         this.add(INFO, "wrap, pushx, growx");
 
         // JScrollPane
@@ -85,8 +78,6 @@ public class Gui extends JFrame {
         SCROLL_PANE.setColumnHeaderView(SHEETS_PANEL.getSheetsTable().getTableHeader());
         SCROLL_PANE.getViewport().add(SHEETS_PANEL);
         this.add(SCROLL_PANE, "push, grow");
-        // auto-save
-        //toSave = new AutoSave(saveTemp(new File(System.getProperty("java.io.tmpdir")), ".unsaved-nexcell.tmp"));
 
         this.pack();
         this.setLocationRelativeTo(null);
@@ -130,19 +121,5 @@ public class Gui extends JFrame {
      */
     public void setModel(DataModel model) {
         this.model = model;
-    }
-
-    /**
-     * Returns the object of AutoSave class.
-     *
-     * @return the object of AutoSave class
-     * @see AutoSave
-     */
-    public AutoSave getToSave() {
-        return toSave;
-    }
-
-    public void setToSave(AutoSave toSave) {
-        this.toSave = toSave;
     }
 }

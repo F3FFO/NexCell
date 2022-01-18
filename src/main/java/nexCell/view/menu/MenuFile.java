@@ -19,7 +19,6 @@ package nexCell.view.menu;
 import nexCell.Main;
 import nexCell.controller.DataModel;
 import nexCell.controller.SheetStructure;
-import nexCell.controller.io.AutoSave;
 import nexCell.controller.io.OpenFile;
 import nexCell.controller.io.SaveFile;
 import nexCell.view.Gui;
@@ -59,16 +58,12 @@ public class MenuFile extends JMenu {
     /**
      * Construct the menu.
      *
-     * @param frame          the main frame
-     * @param sheetStructure data structure
-     * @param model          data model of the JTable
-     * @param SHEETS         the panel which contain the JTable
+     * @param frame  the main frame
+     * @param SHEETS the panel which contain the JTable
      * @see Gui
-     * @see SheetStructure
-     * @see DataModel
      * @see SheetsView
      */
-    public MenuFile(Gui frame, SheetStructure sheetStructure, DataModel model, SheetsView SHEETS) {
+    public MenuFile(Gui frame, SheetsView SHEETS) {
         super("File");
         //---- newMenuItem ----
         newMenuItem.setText("Nuovo");
@@ -112,8 +107,8 @@ public class MenuFile extends JMenu {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             this.frame.setSheetStructure(new SheetStructure());
-            this.frame.setModel(new DataModel(this.frame.getSheetStructure()));
-            this.SHEETS.getSheetsTable().setModel(this.frame.getModel());
+            this.frame.setModel(new DataModel(frame.getSheetStructure()));
+            this.SHEETS.getSheetsTable().setModel(frame.getModel());
         }
     }
 
@@ -140,19 +135,16 @@ public class MenuFile extends JMenu {
             fileChooser.setLocale(Locale.getDefault());
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.setAcceptAllFileFilterUsed(false);
-            int userSelection = fileChooser.showOpenDialog(this.menu);
+            int userSelection = fileChooser.showOpenDialog(menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
-                //todo fix
-                frame.getToSave().kill();
-                Thread thread = new Thread(new OpenFile(fileChooser.getSelectedFile(), this.frame.getModel()));
+                Thread thread = new Thread(new OpenFile(fileChooser.getSelectedFile(), frame.getModel()));
                 thread.start();
                 try {
                     thread.join();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    //String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    new AutoSave(Main.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix()));
+                    Main.saveFile(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), frame.getSheetStructure().getMatrix());
                 }
             }
         }
@@ -181,7 +173,6 @@ public class MenuFile extends JMenu {
             fileChooser.setLocale(Locale.getDefault());
             int userSelection = fileChooser.showSaveDialog(this.menu);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
-                frame.getToSave().kill();
                 Thread thread = new Thread(new SaveFile(fileChooser.getSelectedFile(), this.frame.getSheetStructure().getMatrix()));
                 thread.start();
                 try {
@@ -189,8 +180,7 @@ public class MenuFile extends JMenu {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    //String name = "." + fileChooser.getSelectedFile().getName() + ".tmp";
-                    new AutoSave(Main.saveTemp(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix()));
+                    Main.saveFile(fileChooser.getCurrentDirectory(), fileChooser.getSelectedFile().getName(), this.frame.getSheetStructure().getMatrix());
                 }
             }
         }

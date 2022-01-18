@@ -36,12 +36,6 @@ public class SheetsView extends JPanel {
      * @see MyJTable
      */
     private final MyJTable sheetsTable;
-    /**
-     * Object of the JTable
-     *
-     * @see nexCell.controller.SheetStructure
-     */
-    private final SheetStructure sheetStructure;
 
     /**
      * Construct the panel and initialize the object.
@@ -56,7 +50,6 @@ public class SheetsView extends JPanel {
      */
     public SheetsView(SheetStructure sheetStructure, DataModel model, JTextField CELL_SELECTED, JTextField FORMULA) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.sheetStructure = sheetStructure;
         this.sheetsTable = new MyJTable(CELL_SELECTED, FORMULA);
 
         sheetsTable.setModel(model);

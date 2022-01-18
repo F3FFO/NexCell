@@ -16,8 +16,6 @@
 
 package nexCell.view.menu;
 
-import nexCell.controller.DataModel;
-import nexCell.controller.SheetStructure;
 import nexCell.view.Gui;
 import nexCell.view.panel.SheetsView;
 
@@ -33,17 +31,13 @@ public class MenuBar extends JMenuBar {
     /**
      * Construct the objects of the JMenuBar.
      *
-     * @param frame          main JFrame
-     * @param sheetStructure data structure
-     * @param model          model of the Jtable
-     * @param SHEETS         panel to modify
+     * @param frame  main JFrame
+     * @param SHEETS panel to modify
      * @see Gui
-     * @see SheetStructure
-     * @see DataModel
      * @see SheetsView
      */
-    public MenuBar(Gui frame, SheetStructure sheetStructure, DataModel model, SheetsView SHEETS) {
-        this.add(new MenuFile(frame, sheetStructure, model, SHEETS));
+    public MenuBar(Gui frame, SheetsView SHEETS) {
+        this.add(new MenuFile(frame, SHEETS));
         this.add(new MenuHelp());
     }
 }

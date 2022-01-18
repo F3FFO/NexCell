@@ -17,19 +17,15 @@
 package nexCell.view;
 
 import nexCell.Main;
-import nexCell.controller.io.AutoSave;
 import nexCell.controller.io.OpenFile;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -40,49 +36,35 @@ import java.util.Vector;
  */
 public class DialogStartUp extends JDialog {
 
-    private AutoSave autosave;
-
     /**
      * Construct the JDialog with a JList which show all unsaved file.
      *
-     * @param frame the main frame
+     * @param frame     the main frame
+     * @param pathFiles list of the paths where the files are saved
+     * @param nameFiles Vector of saved file names
+     * @param dateFiles Vector of dates of saved files
      * @see Gui
      */
-    public DialogStartUp(Gui frame) {
+    public DialogStartUp(Gui frame, List<File> pathFiles, Vector<String> nameFiles, Vector<String> dateFiles) {
         super(new JFrame());
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(600, 500));
 
+        // initialize JTextArea for the description
         JTextArea intro = new JTextArea("NexCell tenterà di ripristinare lo stato dei file su cui stavi lavorando prima dell'errore." +
                 " Fai clicl su 'Avvio' per iniziare il processo oppure su 'Scarta' per annullare il ripristino.");
         intro.setLineWrap(true);
         this.add(intro, BorderLayout.NORTH);
 
-        // list of paths
-        List<File> files = new ArrayList<>(2);
-        Vector<String> nameFiles = new Vector<>(2);
-        Vector<String> dateFiles = new Vector<>(2);
-
         // model of the JList
         DefaultTableModel tableModel = new DefaultTableModel();
-        // populate the model and the List
-        try {
-            String line;
-            BufferedReader in = new BufferedReader(new FileReader(Main.PREFERENCES_FILE));
-            while ((line = in.readLine()) != null) {
-                String[] splitted = line.split(";");
-                files.add(new File(splitted[0]));
-                nameFiles.add(splitted[1]);
-                dateFiles.add(splitted[2]);
-            }
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         tableModel.addColumn("Nome", nameFiles);
         tableModel.addColumn("Ultima modifica", dateFiles);
+
         // add the JList to the panel
         JTable jTable = new JTable(tableModel);
+        jTable.setShowGrid(true);
+        jTable.setGridColor(Color.LIGHT_GRAY);
         this.getContentPane().add(jTable, BorderLayout.CENTER);
 
         // panel with the action button
@@ -91,9 +73,7 @@ public class DialogStartUp extends JDialog {
         newFile.addActionListener(actionEvent -> {
             try {
                 Files.deleteIfExists(Paths.get(Main.PREFERENCES_FILE.toURI()));
-                autosave = new AutoSave(Main.saveTemp(new File(System.getProperty("java.io.tmpdir")), ".unsaved-nexcell.tmp", frame.getSheetStructure().getMatrix()));
-                frame.setToSave(autosave);
-                Files.createFile(Paths.get(Main.PREFERENCES_FILE.toURI()));
+                Main.saveFile(new File(System.getProperty("java.io.tmpdir")), ".unsaved-nexcell.tmp", frame.getSheetStructure().getMatrix());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,7 +85,7 @@ public class DialogStartUp extends JDialog {
         oldFile.addActionListener(actionEvent -> {
             int index = jTable.getSelectedRow();
             if (index != -1) {
-                File temp = new File(files.get(index), nameFiles.get(index));
+                File temp = new File(pathFiles.get(index), nameFiles.get(index));
                 Thread thread = new Thread(new OpenFile(temp, frame.getModel()));
                 thread.start();
                 try {
@@ -115,8 +95,7 @@ public class DialogStartUp extends JDialog {
                 }
                 try {
                     Files.deleteIfExists(Paths.get(Main.PREFERENCES_FILE.toURI()));
-                    Files.createFile(Paths.get(Main.PREFERENCES_FILE.toURI()));
-                    new AutoSave(Main.saveTemp(files.get(index), nameFiles.get(index), frame.getSheetStructure().getMatrix()));
+                    Main.saveFile(pathFiles.get(index), nameFiles.get(index), frame.getSheetStructure().getMatrix());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
