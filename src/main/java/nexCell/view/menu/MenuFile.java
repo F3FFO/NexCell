@@ -73,12 +73,12 @@ public class MenuFile extends JMenu {
         //---- openMenuItem ----
         openMenuItem.setText("Apri...");
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        openMenuItem.addActionListener(new OpenActionPerformed(this, frame));
+        openMenuItem.addActionListener(new OpenActionPerformed(frame));
         this.add(openMenuItem);
         //---- saveAsMenuItem ----
         saveAsMenuItem.setText("Salva");
         saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        saveAsMenuItem.addActionListener(new SaveAsActionPerformed(this, frame));
+        saveAsMenuItem.addActionListener(new SaveAsActionPerformed(frame));
         this.add(saveAsMenuItem);
         this.addSeparator();
         //---- exitMenuItem ----
@@ -120,11 +120,9 @@ public class MenuFile extends JMenu {
      */
     private static class OpenActionPerformed implements ActionListener {
 
-        private final JMenu menu;
         private final Gui frame;
 
-        public OpenActionPerformed(JMenu menu, Gui frame) {
-            this.menu = menu;
+        public OpenActionPerformed(Gui frame) {
             this.frame = frame;
         }
 
@@ -158,11 +156,9 @@ public class MenuFile extends JMenu {
      */
     private static class SaveAsActionPerformed implements ActionListener {
 
-        private final JMenu menu;
         private final Gui frame;
 
-        public SaveAsActionPerformed(JMenu menu, Gui frame) {
-            this.menu = menu;
+        public SaveAsActionPerformed(Gui frame) {
             this.frame = frame;
         }
 

@@ -55,7 +55,7 @@ public class MenuHelp extends JMenu {
      *
      * @see java.awt.event.ActionListener
      */
-    private class LicenseActionPerformed implements ActionListener {
+    private static class LicenseActionPerformed implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
