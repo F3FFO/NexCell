@@ -1,7 +1,8 @@
+LIBFOLDER = ../../../lib
 LIB1 = flatlaf-2.0-rc1.jar
 LIB2 = miglayout-core-11.0.jar
 LIB3 = miglayout-swing-11.0.jar
-JFLAGSCLASSPATH = -cp lib/$(LIB1):lib/$(LIB2):lib/$(LIB3):.
+JFLAGSCLASSPATH = -cp $(LIBFOLDER)/$(LIB1):$(LIBFOLDER)/$(LIB2):$(LIBFOLDER)/$(LIB3):.
 JFLAGS = -g
 JFLAGS = -s 11
 JC = javac
