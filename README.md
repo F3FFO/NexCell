@@ -10,11 +10,15 @@ in particular I leave some implementation obligations:
 ## Download
 NexCell can be downloaded by cloning the sources:
 - `git clone https://github.com/F3FFO/NexCell.git`
+
 Otherwise download from [here](https://github.com/F3FFO/NexCell/archive/refs/heads/master.zip)
 
 ## Used libraries, components and icons
 * [FlatLaf - Flat Look and Feel](https://github.com/JFormDesigner/FlatLaf) by [JFormDesigner](https://github.com/JFormDesigner)
 * [MiG Layout](https://github.com/mikaelgrev/miglayout) by [mikaelgrev](https://github.com/mikaelgrev)
+
+## Documentation
+There is a documentation available via browser: [javadoc](https://github.com/F3FFO/NexCell/tree/master/out/javaDoc)
 
 ## License
 ```
