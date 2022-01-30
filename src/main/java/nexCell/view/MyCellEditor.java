@@ -48,6 +48,16 @@ public class MyCellEditor extends DefaultCellEditor {
         this.sheetStructure = sheetStructure;
     }
 
+    /**
+     * Returns the component for editing.
+     *
+     * @param table      the JTable that is asking the editor to edit; can be null
+     * @param value      the value of the cell to be edited; it is up to the specific editor to interpret and draw the value. For example, if value is the string "true", it could be rendered as a string or it could be rendered as a check box that is checked. null is a valid value
+     * @param isSelected true if the cell is to be rendered with highlighting
+     * @param row        the row of the cell being edited
+     * @param column     the column of the cell being edited
+     * @return the component for editing
+     */
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         if (sheetStructure.getMatrix().get(row).get(column) instanceof CellFormula) {
