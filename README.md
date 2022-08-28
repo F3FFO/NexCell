@@ -17,9 +17,6 @@ Otherwise download from [here](https://github.com/F3FFO/NexCell/archive/refs/hea
 * [FlatLaf - Flat Look and Feel](https://github.com/JFormDesigner/FlatLaf) by [JFormDesigner](https://github.com/JFormDesigner)
 * [MiG Layout](https://github.com/mikaelgrev/miglayout) by [mikaelgrev](https://github.com/mikaelgrev)
 
-## Documentation
-There is a documentation available via browser: [javadoc](https://github.com/F3FFO/NexCell/tree/master/out/javaDoc)
-
 ## License
 ```
 Copyright 2022 F3FFO - Federico Pierantoni
